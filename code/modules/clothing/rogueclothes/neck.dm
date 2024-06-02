@@ -4,6 +4,7 @@
 	icon = 'icons/roguetown/clothing/neck.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/neck.dmi'
 	bloody_icon_state = "bodyblood"
+	allowed_savage = TRUE
 
 /obj/item/clothing/neck/roguetown/coif
 	name = "coif"
@@ -18,6 +19,7 @@
 	toggle_icon_state = TRUE
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
+	allowed_savage = FALSE
 
 /obj/item/clothing/neck/roguetown/coif/AdjustClothes(mob/user)
 	if(loc == user)
@@ -59,6 +61,7 @@
 	blocksound = CHAINHIT
 	smeltresult = /obj/item/ingot/steel
 	anvilrepair = /datum/skill/craft/armorsmithing
+	allowed_savage = FALSE
 
 /obj/item/clothing/neck/roguetown/chaincoif/AdjustClothes(mob/user)
 	if(loc == user)
@@ -103,6 +106,7 @@
 	blocksound = PLATEHIT
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
+	allowed_savage = FALSE
 
 /obj/item/clothing/neck/roguetown/gorget
 	name = "gorget"
@@ -118,6 +122,7 @@
 	blocksound = PLATEHIT
 	smeltresult = /obj/item/ingot/iron
 	anvilrepair = /datum/skill/craft/armorsmithing
+	allowed_savage = FALSE
 
 
 /obj/item/clothing/neck/roguetown/psicross

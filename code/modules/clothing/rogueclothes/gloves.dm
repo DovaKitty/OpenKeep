@@ -8,6 +8,7 @@
 	bloody_icon_state = "bloodyhands"
 	sleevetype = "shirt"
 	max_heat_protection_temperature = 361
+	allowed_savage = TRUE
 
 /obj/item/clothing/gloves/roguetown/leather
 	name = "leather gloves"
@@ -67,6 +68,7 @@
 	break_sound = 'sound/foley/breaksound.ogg'
 	drop_sound = 'sound/foley/dropsound/chain_drop.ogg'
 	anvilrepair = /datum/skill/craft/armorsmithing
+	allowed_savage = FALSE
 
 /obj/item/clothing/gloves/roguetown/chain/iron
 	icon_state = "icgloves"
@@ -87,6 +89,7 @@
 	break_sound = 'sound/foley/breaksound.ogg'
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	anvilrepair = /datum/skill/craft/armorsmithing
+	allowed_savage = FALSE
 
 /obj/item/clothing/gloves/roguetown/grenzelgloves
 	name = "grenzelhoft gloves"
@@ -109,6 +112,7 @@
 	mob_overlay_icon = 'icons/roguetown/topadd/takyon/onmob_racial.dmi'
 	sleeved = 'icons/roguetown/topadd/takyon/onmob_racial.dmi'
 	sleevetype = null
+	allowed_savage = FALSE
 
 /obj/item/clothing/gloves/roguetown/rare/elfplate	
 	name = "elvish plate gauntlets"

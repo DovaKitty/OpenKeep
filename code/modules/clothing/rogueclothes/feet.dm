@@ -11,6 +11,7 @@
 	bloody_icon_state = "shoeblood"
 	equip_delay_self = 30
 	resistance_flags = FIRE_PROOF
+	allowed_savage = TRUE
 
 /obj/item/clothing/shoes/roguetown/boots
 	name = "dark boots"
@@ -110,6 +111,7 @@
 	color = null
 	blocksound = PLATEHIT
 	armor = list("melee" = 100, "bullet" = 100, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	allowed_savage = FALSE
 
 /obj/item/clothing/shoes/roguetown/boots/leather
 	name = "leather boots"
@@ -137,6 +139,7 @@
 	mob_overlay_icon = 'icons/roguetown/topadd/takyon/onmob_racial.dmi'
 	sleeved = 'icons/roguetown/topadd/takyon/onmob_racial.dmi'
 	sleevetype = null
+	allowed_savage = FALSE
 
 /obj/item/clothing/shoes/roguetown/boots/rare/elfplate
 	name = "elvish plated boots"

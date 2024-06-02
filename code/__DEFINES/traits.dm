@@ -16,6 +16,7 @@
 #define RTRAIT_HEAVYARMOR				"Plate Training"
 #define RTRAIT_DODGEEXPERT              "Fast Reflexes"
 #define RTRAIT_VILLAIN					"Villain"
+#define RTRAIT_SAVAGE					"Savage" // Can't wear most armor, pants or shirts. for Barbarian and Amazon
 
 #define TRAIT_NOFATSTAM				"nofatstam" //for ai
 #define TRAIT_NOSLEEP				"nosleep"
@@ -44,7 +45,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	RTRAIT_MEDIUMARMOR = "I can move freely in medium armor.",
 	RTRAIT_HEAVYARMOR = "I can move freely in heavy armor.",
 	RTRAIT_DODGEEXPERT = "I can dodge easly while only wearing light armor.",
-	RTRAIT_VILLAIN = "I am a devious, conniving villain!"
+	RTRAIT_VILLAIN = "I am a devious, conniving villain!",
+	RTRAIT_SAVAGE = "I am a savage, brutal warrior!"
 	))
 
 

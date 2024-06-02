@@ -13,6 +13,7 @@
 	bloody_icon_state = "bodyblood"
 	boobed = TRUE
 	sewrepair = TRUE
+	allowed_savage = FALSE // Barbarians don't wear shirts
 
 /obj/item/clothing/suit/roguetown/shirt/undershirt
 	name = "shirt"

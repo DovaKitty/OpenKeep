@@ -82,6 +82,7 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	armor_class = ARMOR_CLASS_LIGHT
 	smeltresult = /obj/item/ingot/iron
+	allowed_savage = TRUE
 
 /obj/item/clothing/suit/roguetown/armor/plate
 	slot_flags = ITEM_SLOT_ARMOR
@@ -310,6 +311,7 @@
 	icon_state = "hidearmor"
 	max_integrity = 230
 	armor_class = ARMOR_CLASS_LIGHT
+	allowed_savage = TRUE
 
 /obj/item/clothing/suit/roguetown/armor/leather/studded
 	name = "studded leather armor"

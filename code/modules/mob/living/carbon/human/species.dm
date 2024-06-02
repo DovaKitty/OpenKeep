@@ -1240,7 +1240,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
-
+	var/savage_allowed = FALSE
+	if(istype(I, /obj/item/clothing))
+		var/obj/item/clothing/C = I
+		savage_allowed = C.allowed_savage
+	var/is_savage = HAS_TRAIT(H, RTRAIT_SAVAGE)
 	var/num_arms = H.get_num_arms(FALSE)
 	var/num_legs = H.get_num_legs(FALSE)
 
@@ -1269,6 +1273,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(H.wear_neck)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_NECK) )
+				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
 				return FALSE
 			return TRUE
 		if(SLOT_BACK)
@@ -1311,6 +1317,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_ARMOR) )
 				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
+				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_GLOVES)
 			if(H.gloves)
@@ -1318,6 +1326,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if( !(I.slot_flags & ITEM_SLOT_GLOVES) )
 				return FALSE
 			if(num_arms < 1)
+				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_SHOES)
@@ -1330,6 +1340,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(DIGITIGRADE in species_traits)
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>The footwear around here isn't compatible with my feet!</span>")
+				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_BELT)
@@ -1364,11 +1376,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return FALSE
 			if(!H.get_bodypart(BODY_ZONE_HEAD))
 				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
+				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_PANTS)
 			if(H.wear_pants)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_PANTS) )
+				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_SHIRT)
@@ -1386,6 +1402,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					if(I.blocksound == H.wear_armor.blocksound)
 						return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_SHIRT) )
+				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_CLOAK)
@@ -1418,6 +1436,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(H.wear_wrists)
 				return FALSE
 			if( !(I.slot_flags & ITEM_SLOT_WRISTS) )
+				return FALSE
+			if(is_savage && (savage_allowed == FALSE))
 				return FALSE
 			return equip_delay_self_check(I, H, bypass_equip_delay_self)
 		if(SLOT_L_STORE)

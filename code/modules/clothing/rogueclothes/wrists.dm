@@ -4,6 +4,7 @@
 	icon = 'icons/roguetown/clothing/wrists.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/wrists.dmi'
 	sleevetype = "shirt"
+	allowed_savage = TRUE
 
 /obj/item/clothing/wrists/roguetown/bracers
 	name = "bracers"
@@ -15,6 +16,7 @@
 	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_BLUNT)
 	blocksound = PLATEHIT
 	anvilrepair = /datum/skill/craft/armorsmithing
+	allowed_savage = FALSE
 
 /obj/item/clothing/wrists/roguetown/bracers/leather
 	name = "leather bracers"
@@ -31,6 +33,7 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
+	allowed_savage = TRUE
 
 /obj/item/clothing/wrists/roguetown/wrappings
 	name = "solar wrappings"

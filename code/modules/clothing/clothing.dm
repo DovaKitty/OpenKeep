@@ -56,6 +56,7 @@
 	var/list/allowed_sex = list(MALE,FEMALE)
 	var/list/allowed_race = ALL_RACES_LIST
 	var/armor_class = ARMOR_CLASS_NONE
+	var/allowed_savage = FALSE //Can Barbarians and Amazons wear this?
 
 	sellprice = 1
 

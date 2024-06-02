@@ -9,6 +9,7 @@
 	dynamic_hair_suffix = "+generic"
 	bloody_icon_state = "helmetblood"
 	experimental_onhip = TRUE
+	allowed_savage = TRUE
 
 /obj/item/clothing/head/roguetown/equipped(mob/user, slot)
 	. = ..()
@@ -329,6 +330,7 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	blocksound = PLATEHIT
 	max_integrity = 200
+	allowed_savage = FALSE
 
 
 /obj/item/clothing/head/roguetown/helmet/skullcap

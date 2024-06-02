@@ -17,6 +17,7 @@
 	l_sleeve_zone = BODY_ZONE_L_LEG
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
+	allowed_savage = FALSE // Barbarians don't wear pants
 
 /obj/item/clothing/under/roguetown/AdjustClothes(mob/user)
 #ifdef MATURESERVER
