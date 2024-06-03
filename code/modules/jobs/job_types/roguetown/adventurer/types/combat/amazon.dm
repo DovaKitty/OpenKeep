@@ -40,7 +40,7 @@
 	H.change_stat("constitution", 2)
 	H.change_stat("speed", 1)
 	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
-	ADD_TRAIT(H, RTRAIT_SAVAGE, TRAIT_GENERIC)
+	ADD_TRAIT(H, RTRAIT_SAVAGE, TRAIT_GENERIC) // Can't wear most armor, pants or shirts. Also adds crit resist to cutting/chopping. The chainkini is essential to roleplay!
 	ADD_TRAIT(H, RTRAIT_DODGEEXPERT, TRAIT_GENERIC)
 	if(H.wear_mask) //for stupid retards with bad eyes
 		var/obj/I = H.wear_mask

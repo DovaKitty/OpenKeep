@@ -16,7 +16,7 @@
 #define RTRAIT_HEAVYARMOR				"Plate Training"
 #define RTRAIT_DODGEEXPERT              "Fast Reflexes"
 #define RTRAIT_VILLAIN					"Villain"
-#define RTRAIT_SAVAGE					"Savage" // Can't wear most armor, pants or shirts. for Barbarian and Amazon
+#define RTRAIT_SAVAGE					"Savage" // Can't wear most armor, pants or shirts. for Barbarian and Amazon. Also adds crit resist to cutting/chopping.
 
 #define TRAIT_NOFATSTAM				"nofatstam" //for ai
 #define TRAIT_NOSLEEP				"nosleep"

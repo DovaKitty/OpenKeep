@@ -43,7 +43,7 @@
 	H.change_stat("perception", 2)
 	H.change_stat("intelligence", -2)
 	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
-	ADD_TRAIT(H, RTRAIT_SAVAGE, TRAIT_GENERIC)
+	ADD_TRAIT(H, RTRAIT_SAVAGE, TRAIT_GENERIC) // Can't wear most armor, pants or shirts. Also adds crit resist to cutting/chopping. Try leather!
 	ADD_TRAIT(H, RTRAIT_DODGEEXPERT, TRAIT_GENERIC)
 	if(H.dna?.species)
 		H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
