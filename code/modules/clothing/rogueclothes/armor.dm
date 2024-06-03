@@ -71,6 +71,7 @@
 	armor_class = ARMOR_CLASS_MEDIUM
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/chainkini
+	slot_flags = ITEM_SLOT_ARMOR
 	name = "amazon mail"
 	desc = ""
 	icon_state = "chainkini"
