@@ -57,6 +57,8 @@
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
+		if((HAS_TRAIT(src, RTRAIT_SAVAGE)) && ((d_type == BCLASS_CHOP) || (d_type == BCLASS_CUT))) //Unarmored fighters like Barbarian/Amazon have natural crit resistance to chopping/cutting.
+			return TRUE
 		if(bp && istype(bp , /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(zone2covered(def_zone, C.body_parts_covered))

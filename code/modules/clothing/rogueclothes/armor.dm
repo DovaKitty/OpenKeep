@@ -304,6 +304,7 @@
 	max_integrity = 150
 	sellprice = 20
 	armor_class = ARMOR_CLASS_LIGHT
+	allowed_savage = TRUE
 
 /obj/item/clothing/suit/roguetown/armor/leather/hide
 	name = "hide armor"
@@ -311,7 +312,6 @@
 	icon_state = "hidearmor"
 	max_integrity = 230
 	armor_class = ARMOR_CLASS_LIGHT
-	allowed_savage = TRUE
 
 /obj/item/clothing/suit/roguetown/armor/leather/studded
 	name = "studded leather armor"
