@@ -9,7 +9,7 @@
 			if(dna.species.name == "Tiefling")
 				user.add_stress(/datum/stressevent/tieb)
 	if(user.has_flaw(/datum/charflaw/paranoid))
-		if((STASTR - user.STASTR) > 1)
+		if((get_stat(stat_ST) - get_stat(stat_ST) > 1))
 			user.add_stress(/datum/stressevent/parastr)
 
 /mob/living/carbon/human/examine(mob/user)
@@ -403,8 +403,8 @@
 
 	if(isliving(user))
 		var/mob/living/L = user
-		var/final_str = STASTR
-		var/strength_diff = final_str - L.STASTR
+		var/final_str = get_stat(stat_ST)
+		var/strength_diff = final_str - L.get_stat(stat_ST)
 		switch(strength_diff)
 			if(5 to INFINITY)
 				. += "<span class='warning'><B>[t_He] look[p_s()] much stronger than I.</B></span>"

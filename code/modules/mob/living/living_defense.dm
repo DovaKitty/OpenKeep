@@ -210,22 +210,30 @@
 //	if(user.pulling != src)
 //		return
 
-	var/probby =  50 - ((user.STASTR - STASTR) * 10)
+	var/wrestle_modifier = 0 // Remember, negative values are good for the user.
 	if(src.dir == turn(get_dir(src,user), 180))//they are behind us
-		probby = (probby - 30)
-	probby = clamp(probby, 5, 95)
-	if(prob(probby) && !instant && !stat && cmode)
-		visible_message("<span class='warning'>[user] struggles with [src]!</span>",
-						"<span class='warning'>[user] struggles to restrain me!</span>", "<span class='hear'>I hear aggressive shuffling!</span>", null, user)
-		if(src.client?.prefs.showrolls)
-			to_chat(user, "<span class='warning'>I struggle with [src]! ([probby]%)</span>")
-		else
-			to_chat(user, "<span class='warning'>I struggle with [src]!</span>")
-		playsound(src.loc, 'sound/foley/struggle.ogg', 100, FALSE, -1)
-		user.Immobilize(30)
-		user.changeNext_move(35)
-		user.rogfat_add(5)
-		return
+		wrestle_modifier += -2
+	var/wrestle_check = success_roll(skill_Wrestling, wrestle_modifier)
+	if((wrestle_check == ("Critical Success" || "Success")) && !instant && !stat && cmode)
+		switch(wrestle_check)
+			if ("Critical Success")
+				visible_message("<span class='warning'>[user] easily restrains [src]!</span>",
+					"<span class='warning'>[user] easily restrains me!</span>", "<span class='hear'>I hear robust shuffling!</span>", null, user)
+				to_chat(user, "<span class='warning'>I easily restrain [src]!</span>")
+				playsound(src.loc, 'sound/foley/struggle.ogg', 100, FALSE, -1)
+				user.Immobilize(15)
+				user.changeNext_move(15) // May want to change these to a define like CLICK_CD_GRABBING
+				user.rogfat_add(2)
+				return
+			if ("Success")
+				visible_message("<span class='warning'>[user] struggles with [src]!</span>",
+					"<span class='warning'>[user] struggles to restrain me!</span>", "<span class='hear'>I hear aggressive shuffling!</span>", null, user)
+				to_chat(user, "<span class='warning'>I struggle with [src]!</span>")
+				playsound(src.loc, 'sound/foley/struggle.ogg', 100, FALSE, -1)
+				user.Immobilize(30)
+				user.changeNext_move(35) // May want to change these to a define like CLICK_CD_GRABBING
+				user.rogfat_add(5)
+				return
 
 	if(!instant)
 		var/sound_to_play = 'sound/foley/grab.ogg'

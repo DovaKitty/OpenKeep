@@ -89,6 +89,7 @@
 		skill_Arcane = new /datum/component/skill("Arcane", "stat_IQ", "Hard") // Arcane magic, elemental and force spells.
 		// Misc skills
 		skill_Climbing = new /datum/component/skill("Climbing", "stat_DX", "Average")
+		skill_Acrobatics = new /datum/component/skill("Acrobatics", "stat_DX", "Hard") // Jumping, tumbling and balancing.
 		skill_Swimming = new /datum/component/skill("Swimming", "stat_HT", "Easy")
 		skill_Stealth = new /datum/component/skill("Stealth", "stat_DX", "Average")
 		skill_Lockpicking = new /datum/component/skill("Lockpicking", "stat_IQ", "Average")
@@ -103,15 +104,8 @@
 			return stat.get_total()
 		return 0
 
-	proc/get_target_stat(stat_name, mob/living/carbon/target) // Returns the total value of a stat of a specified mob
-		if (target)
-			var/datum/component/stat/stat = stat_name
-			if (stat && istype(stat, /datum/component/stat))
-				return target.get_stat(stat)
-			else
-				return 0
-		else
-			return 0
+	proc/get_basic_speed() // Returns the basic speed of the mob. This is calculated by adding DX, HT, dividing by 4 (rounding down), and adding SPD.
+		return (get_stat(stat_DX) + get_stat(stat_HT)) / 4 + get_stat(stat_SPD)
 
 	proc/set_stat_base(stat_name, value) // Sets the base value of a stat, ignoring the buffer. Useful for setting up mobs.
 		var/datum/component/stat/stat = stat_name
@@ -132,16 +126,6 @@
 		if (skill)
 			return skill.level
 		return 0
-
-	proc/get_target_skill(skill_name, mob/living/carbon/target) // Returns the total level of a skill of a specified mob
-		if (target)
-			var/datum/component/skill/skill = skill_name
-			if (skill && istype(skill, /datum/component/skill))
-				return target.get_skill(skill)
-			else
-				return 0
-		else
-			return 0
 
 	proc/get_skill_exp(skill_name) // Returns the experience of a skill.
 		var/datum/component/skill/skill = skill_name
@@ -196,9 +180,11 @@
 						var/value = H.dna.species.specstats[name]
 						change_stat(stat, value)
 			switch (H.age)
+				/* // Delanda Est.
 				if (AGE_YOUNG)
 					change_stat(stat_ST, -1)
 					change_stat(stat_DX, 1)
+				*/
 				if (AGE_MIDDLEAGED)
 					change_stat(stat_ST, 1)
 					change_stat(stat_HT, -1)
@@ -207,7 +193,7 @@
 					change_stat(stat_HT, -2)
 					change_stat(stat_IQ, 2)
 
-	proc/success_roll(stat_or_skill, modifier = 0) // Standard roll for success or failure. Returns "Critical Success", "Success", "Failure", or "Critical Failure".
+	proc/success_roll(stat_or_skill, modifier = 0, skillgain = TRUE) // Standard roll for success or failure. Returns "Critical Success", "Success", "Failure", or "Critical Failure". Skillgain is bool for if to add exp. Modifier is bias against user, but can be negative for bias towards user.
 		var/dice_roll = roll("3d6") // 3-18
 		var/positive_luck = 0 // Makes critical success more likely
 		var/negative_luck = 0 // Makes critical failure more likely
@@ -229,6 +215,8 @@
 				return "Failure"
 		if (skill && istype(skill, /datum/component/skill))
 			var/effective_skill = get_skill(skill) - modifier + (get_stat(get_skill_stat(skill))-10)
+			if (skillgain == TRUE)
+				add_skill_exp(skill) // Add exp to the skill, (1 * IQ).
 			if (effective_skill - dice_roll >= (10 - positive_luck))
 				return "Critical Success"
 			if (effective_skill >= dice_roll)
@@ -240,7 +228,7 @@
 		else
 			return "Failure"
 
-	proc/quick_contest(user, user_stat_or_skill, target, target_stat_or_skill) // Standard roll for contests. Returns "User" or "Target". No ties. Can be used to compare between stats and skills, for example Pickpocket vs PER.
+	proc/quick_contest(mob/living/user, user_stat_or_skill, mob/living/target, target_stat_or_skill, modifier = 0, skillgain = TRUE) // Standard roll for contests. Returns "True" or "False" depending if the user or target wins. No ties. Can be used to compare between stats and skills, for example Pickpocket vs PER. Modifier is bias against user, but can be negative for bias towards user.
 		var/user_roll = roll("3d6") // 3-18
 		var/target_roll = roll("3d6") // 3-18
 		var/effective_user = 0
@@ -249,32 +237,36 @@
 		if (user_stat_or_skill != null)
 			var/datum/component/stat/stat = user_stat_or_skill
 			if (stat && istype(stat, /datum/component/stat))
-				effective_user = get_stat(stat)
+				effective_user = user.get_stat(stat)
 			else
 				var/datum/component/skill/skill = user_stat_or_skill
 				if (skill && istype(skill, /datum/component/skill))
-					effective_user = get_skill(skill) + (get_stat(get_skill_stat(skill)) - 10)
+					if (skillgain == TRUE)
+						add_skill_exp(skill) // Add exp to the skill, (1 * IQ).
+					effective_user = user.get_skill(skill) + (user.get_stat(user.get_skill_stat(skill)) - 10)
 				else
-					return "Target"
+					return FALSE // If the user has no stat or skill, they automatically lose.
 
 		if (target_stat_or_skill != null)
 			var/datum/component/stat/stat = target_stat_or_skill
 			if (stat && istype(stat, /datum/component/stat))
-				effective_target = get_target_stat(stat, target)
+				effective_target = target.get_stat(stat)
 			else
 				var/datum/component/skill/skill = target_stat_or_skill
 				if (skill && istype(skill, /datum/component/skill))
-					effective_target = get_target_skill(skill, target) + (get_target_stat(get_skill_stat(skill), target) - 10)
+					if (skillgain == TRUE)
+						target.add_skill_exp(skill) // Add exp to the skill, (1 * IQ).
+					effective_target = target.get_skill(skill) + (target.get_stat(target.get_skill_stat(skill)) - 10)
 				else
-					return "User"
+					return TRUE // If the target has no stat or skill, they automatically lose.
 
-		var/user_margin = effective_user - user_roll
+		var/user_margin = effective_user - modifier - user_roll // The higher the modifier the more likely the user will lose. A negative modifier helps the user.
 		var/target_margin = effective_target - target_roll
 		if (user_margin > target_margin)
-			return "User"
+			return TRUE // If the user has a higher margin of success, they win.
 		if (target_margin > user_margin)
-			return "Target"
-		return pick("User", "Target") // Upon a margin of success being equal, pick a winner at random.
+			return FALSE // If the target has a higher margin of success, they win.
+		return pick(TRUE, FALSE) // Upon a margin of success being equal, pick a winner at random.
 
 /datum/species
 	var/list/specstats = list("stat_ST" = 0, "stat_DX" = 0, "stat_HT" = 0, "stat_IQ" = 0, "stat_WIL" = 0, "stat_PER" = 0, "stat_SPD" = 0, "stat_LUC" = 0)

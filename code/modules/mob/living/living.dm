@@ -182,15 +182,10 @@
 	if(m_intent == MOVE_INTENT_RUN && dir == get_dir(src, M))
 		if(isliving(M))
 			var/mob/living/L = M
-			if(STACON > L.STACON)
-				if(STASTR > L.STASTR)
-					L.Knockdown(1)
-				else
-					Knockdown(1)
-			if(STACON < L.STACON)
-				Knockdown(30)
-			if(STACON == L.STACON)
-				L.Knockdown(1)
+			var/charge_contest = quick_contest(src, "stat_ST", L, "stat_ST")
+			if (charge_contest == TRUE)
+				L.Knockdown(30)
+			else
 				Knockdown(30)
 			Immobilize(30)
 			var/playsound = FALSE
@@ -214,16 +209,8 @@
 
 		//stat checking block
 		if(!(world.time % 5))
-			var/statchance = 50
-
-			if(STASTR > L.STASTR)
-				statchance = 50 + (STASTR - L.STASTR * 10)
-
-			else if(STASTR < L.STASTR)
-				statchance = 50 - (L.STASTR - STASTR * 10)
-			if(statchance < 10)
-				statchance = 10
-			if(prob(statchance))
+			var/push_contest = quick_contest(src, "stat_ST", L, "stat_ST")
+			if (push_contest == TRUE)
 				visible_message("<span class='info'>[src] pushes [M].</span>")
 			else
 				visible_message("<span class='warning'>[src] pushes [M].</span>")
@@ -1825,7 +1812,7 @@
 	changeNext_move(CLICK_CD_EXHAUSTED)
 	if(m_intent != MOVE_INTENT_SNEAK)
 		visible_message("<span class='info'>[src] looks around.</span>")
-	var/looktime = 50 - (STAPER * 2)
+	var/looktime = 50 - (get_stat(stat_PER) * 2)
 	if(do_after(src, looktime, target = src))
 		// var/huhsneak
 		for(var/mob/living/M in view(7,src))
@@ -1833,11 +1820,8 @@
 				continue
 			if(see_invisible < M.invisibility)
 				continue
-			var/probby = 3 * STAPER
-			if(M.mind)
-				probby -= (M.mind.get_skill_level(/datum/skill/misc/sneaking) * 10)
-			probby = (max(probby, 5))
-			if(prob(probby))
+			var/sneak_contest = quick_contest(src, "stat_PER", M, "skill_Stealth")
+			if (sneak_contest == TRUE)
 				found_ping(get_turf(M), client, "hidden")
 				if(M.m_intent == MOVE_INTENT_SNEAK)
 					emote("huh")
@@ -1845,10 +1829,7 @@
 					M.mob_timers[MT_FOUNDSNEAK] = world.time
 			else
 				if(M.m_intent == MOVE_INTENT_SNEAK)
-					if(M.client?.prefs.showrolls)
-						to_chat(M, "<span class='warning'>[src] didn't find me... [probby]%</span>")
-					else
-						to_chat(M, "<span class='warning'>[src] didn't find me.</span>")
+					to_chat(M, "<span class='warning'>[src] didn't find me.</span>")
 				else
 					found_ping(get_turf(M), client, "hidden")
 
@@ -1914,8 +1895,8 @@
 		do_time_change()
 
 	var/ttime = 10
-	if(STAPER > 5)
-		ttime = 10 - (STAPER - 5)
+	if(get_stat(stat_PER) > 5)
+		ttime = 10 - (get_stat(stat_PER) - 5)
 		if(ttime < 0)
 			ttime = 0
 
@@ -1947,8 +1928,8 @@
 		return
 	hide_cone()
 	var/ttime = 10
-	if(STAPER > 5)
-		ttime = 10 - (STAPER - 5)
+	if(get_stat(stat_PER) > 5)
+		ttime = 10 - (get_stat(stat_PER) - 5)
 		if(ttime < 0)
 			ttime = 0
 	if(m_intent != MOVE_INTENT_SNEAK)
@@ -1978,8 +1959,8 @@
 	if(!OS)
 		return
 	var/ttime = 10
-	if(STAPER > 5)
-		ttime = 10 - (STAPER - 5)
+	if(get_stat(stat_PER) > 5)
+		ttime = 10 - (get_stat(stat_PER) - 5)
 		if(ttime < 0)
 			ttime = 0
 

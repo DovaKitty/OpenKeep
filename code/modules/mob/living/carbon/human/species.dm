@@ -1518,9 +1518,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return do_after(H, 5 MINUTES, target = H)
 //	H.visible_message("<span class='notice'>[H] start putting on [I]...</span>", "<span class='notice'>I start putting on [I]...</span>")
 	if(I.edelay_type)
-		return move_after(H, minone(I.equip_delay_self-H.STASPD), target = H)
+		return move_after(H, minone(I.equip_delay_self-(H.get_basic_speed() + 5)), target = H)
 	else
-		return do_after(H, minone(I.equip_delay_self-H.STASPD), target = H)
+		return do_after(H, minone(I.equip_delay_self-(H.get_basic_speed() + 5)), target = H)
 
 /datum/species/proc/before_equip_job(datum/job/J, mob/living/carbon/human/H)
 	return
@@ -1918,8 +1918,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //		var/obj/machinery/disposal/bin/target_disposal_bin
 		var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
 
-		if(prob(30 + generic_stat_comparison(user.STASTR, target.STACON) ))//check if we actually shove them
-			//Thank you based whoneedsspace
+		if(user.quick_contest(user, user.stat_ST, target, target.stat_ST, 2))//check if we actually shove them
 			target_collateral_mob = locate(/mob/living) in target_shove_turf.contents
 			if(target_collateral_mob)
 				shove_blocked = TRUE
@@ -2342,11 +2341,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				if(damage_amount > 5)
 					H.AdjustSleeping(-50)
 					if(prob(damage_amount * 3))
-						if(damage_amount > ((H.STACON*10) / 3))
+						if(damage_amount > ((H.get_stat(H.stat_HT)*10) / 3))
 							H.emote("painscream")
 						else
 							H.emote("pain")
-				if(damage_amount > ((H.STACON*10) / 3))
+				if(damage_amount > ((H.get_stat(H.stat_HT)*10) / 3))
 					H.Immobilize(8)
 					shake_camera(H, 2, 2)
 					H.stuttering += 5
@@ -2752,11 +2751,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 /datum/species/proc/knockback(obj/item/I, mob/living/target, mob/living/user, nodmg)
 	if(!istype(I))
 		if(!target.resting)
-			var/chungus_str = target.STASTR
+			var/user_ST = user.get_stat(user.stat_ST)
 			var/knockback_tiles = 0
 			var/damage = user.get_punch_dmg()
-			if(chungus_str >= 3)
-				knockback_tiles = FLOOR(damage/((chungus_str - 2) * 2.5), 1)
+			if(user_ST >= 3)
+				knockback_tiles = FLOOR(damage/((user_ST - 2) * 2.5), 1)
 			else
 				knockback_tiles = FLOOR(damage/2, 1)
 			if(knockback_tiles >= 1)
@@ -2774,7 +2773,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			return
 		if(!I.sharpness)
 			if(!target.resting)
-				var/endurance = target.STAEND
+				var/endurance = target.get_stat(target.stat_HT)
 				var/knockback_tiles = 0
 				var/newforce = get_complex_damage(I, user)
 				if(endurance >= 3)
@@ -2794,11 +2793,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /mob/living/proc/handle_knockback(turf/starting_turf)
 	var/distance = 0
-	var/skill_modifier = 10
 	if(istype(starting_turf) && !QDELETED(starting_turf))
 		distance = get_dist(starting_turf, src)
-	if(mind)
-		skill_modifier = mind.get_skill_level(/datum/skill/misc/athletics)
-	var/modifier = -distance
-	if(!prob(STASPD+skill_modifier+modifier))
-		Paralyze(15)
+	var/skill_check = (success_roll(skill_Acrobatics, distance)) // Acrobatics roll to determine how well you land after being knocked back
+	switch(skill_check)
+		if ("Failure")
+			Paralyze(15)
+		if ("Critical Failure")
+			Knockdown(15)
+			Paralyze(15)

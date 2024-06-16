@@ -53,7 +53,7 @@
 			if(used_intent.type == INTENT_DISARM)
 				var/obj/AM = A
 				if(istype(AM) && !AM.anchored)
-					var/jadded = max(100-(STASTR*10),5)
+					var/jadded = max(100-(get_stat(stat_ST)*10),5)
 					if(rogfat_add(jadded))
 						visible_message("<span class='info'>[src] pushes [AM].</span>")
 						PushAM(AM, MOVE_FORCE_STRONG)
@@ -178,7 +178,7 @@
 	next_attack_msg.Cut()
 
 	var/nodmg = FALSE
-	var/dam2do = 10*(user.STASTR/20)
+	var/dam2do = 10*(user.get_stat(stat_ST)/20)
 	if(HAS_TRAIT(user, TRAIT_STRONGBITE))
 		dam2do *= 2
 	if(!HAS_TRAIT(user, TRAIT_STRONGBITE))

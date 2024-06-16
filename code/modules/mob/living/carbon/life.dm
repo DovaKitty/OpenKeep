@@ -116,12 +116,12 @@
 	if(HAS_TRAIT(src, TRAIT_NOPAIN))
 		return
 	if(!stat)
-		var/painpercent = get_complex_pain() / (STAEND * 10)
+		var/painpercent = get_complex_pain() / (get_stat(stat_HT) * 10)
 		painpercent = painpercent * 100
 
 		if(world.time > mob_timers["painstun"])
 			mob_timers["painstun"] = world.time + 100
-			var/probby = 40 - (STAEND * 2)
+			var/probby = 40 - (get_stat(stat_HT) * 2)
 			probby = max(probby, 10)
 			if(lying || IsKnockdown())
 				if(prob(3) && (painpercent >= 80) )

@@ -106,19 +106,20 @@
 
 /mob/living/carbon/human/get_emote_frequency()
 	var/cont = 44100
+	var/user_ST = get_stat(stat_ST)
 	if(gender == MALE)
-		if(STASTR > 10)
-			for(var/i in 1 to STASTR)
+		if(user_ST > 10)
+			for(var/i in 1 to user_ST)
 				cont -= 200
-		if(STASTR < 10)
-			for(var/i in 1 to STASTR)
+		if(user_ST < 10)
+			for(var/i in 1 to user_ST)
 				cont += 100
 	else
-		if(STASTR > 10)
-			for(var/i in 1 to STASTR)
+		if(user_ST > 10)
+			for(var/i in 1 to user_ST)
 				cont -= 200
-		if(STASTR < 5)
-			for(var/i in 1 to STASTR)
+		if(user_ST < 5)
+			for(var/i in 1 to user_ST)
 				cont += 100
 	return cont
 

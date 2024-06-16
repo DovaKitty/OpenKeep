@@ -112,19 +112,25 @@
 	//random painstun
 	if(!stat && !HAS_TRAIT(src, TRAIT_NOPAINSTUN))
 		if(world.time > mob_timers["painstun"] + 600)
-			if(getBruteLoss() + getFireLoss() >= (STAEND * 10))
-				var/probby = 53 - (STAEND * 2)
-				if(!(mobility_flags & MOBILITY_STAND))
-					probby = probby - 20
-				if(prob(probby))
-					mob_timers["painstun"] = world.time
-					Immobilize(10)
-					emote("painscream")
-					visible_message("<span class='warning'>[src] freezes in pain!</span>",
-								"<span class='warning'>I'm frozen in pain!</span>")
-					sleep(10)
-					Stun(110)
-					Knockdown(110)
+			if(getBruteLoss() + getFireLoss() >= (get_stat(stat_HT) * 10))
+				var/pain_roll = success_roll(stat_HT)
+				switch(pain_roll)
+					if ("Failure")
+						mob_timers["painstun"] = world.time
+						Immobilize(10)
+						emote("painscream")
+						visible_message("<span class='warning'>[src] shudders in pain!</span>",
+									"<span class='warning'>I'm shuddering in pain!</span>")
+						stun(50)
+					if ("Critical Failure")
+						mob_timers["painstun"] = world.time
+						Immobilize(10)
+						emote("painscream")
+						visible_message("<span class='warning'>[src] freezes in pain!</span>",
+									"<span class='warning'>I'm frozen in pain!</span>")
+						sleep(10)
+						stun(110)
+						knockdown(110)
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return

@@ -210,7 +210,8 @@
 					if(!throwable_mob.buckled)
 						thrown_thing = throwable_mob
 						thrown_speed = 1
-						if(STASTR > throwable_mob.STACON)
+						var/throw_contest = quick_contest(src, "stat_ST", throwable_mob, "stat_ST")
+						if (throw_contest == TRUE)
 							thrown_range = 4
 						else
 							thrown_range = 1
@@ -333,7 +334,7 @@
 		if(istype(buckled, /obj/structure))
 			var/obj/structure/S = buckled
 			buckle_cd += S.breakoutextra
-		if(STASTR > 15)
+		if(get_stat(stat_ST) > 15)
 			buckle_cd = 3 SECONDS
 		visible_message("<span class='warning'>[src] attempts to struggle free!</span>", \
 					"<span class='notice'>I attempt to struggle free...</span>")
@@ -386,10 +387,10 @@
 		return
 	I.item_flags |= BEING_REMOVED
 	breakouttime = I.slipouttime
-	if(STASTR > 10)
+	if(get_stat(stat_ST) > 10)
 		cuff_break = FAST_CUFFBREAK
 		breakouttime = I.breakouttime
-	if(STASTR > 15 || (mind && mind.has_antag_datum(/datum/antagonist/zombie)) )
+	if(get_stat(stat_ST) > 15 || (mind && mind.has_antag_datum(/datum/antagonist/zombie)) )
 		cuff_break = INSTANT_CUFFBREAK
 	if(!cuff_break)
 		to_chat(src, "<span class='notice'>I attempt to remove [I]...</span>")
@@ -502,13 +503,14 @@
 			I.safe_throw_at(target,I.throw_range,I.throw_speed,src, force = move_force)
 
 /mob/living/carbon/proc/get_str_arms(num)
+	var/user_ST = get_stat(stat_ST)
 	if(!domhand || !num)
-		return STASTR
-	var/used = STASTR
+		return user_ST
+	var/used = user_ST
 	if(num == domhand)
 		return used
 	else
-		used = STASTR - 1
+		used = user_ST - 1
 		if(used < 1)
 			used = 1
 		return used
@@ -516,12 +518,13 @@
 /mob/living/Stat()
 	..()
 	if(statpanel("Stats"))
-		stat("STR: \Roman [STASTR]")
-		stat("PER: \Roman [STAPER]")
-		stat("INT: \Roman [STAINT]")
-		stat("CON: \Roman [STACON]")
-		stat("END: \Roman [STAEND]")
-		stat("SPD: \Roman [STASPD]")
+		stat("ST: \Roman [get_stat(stat_ST)]")
+		stat("DX: \Roman [get_stat(stat_DX)]")
+		stat("HT: \Roman [get_stat(stat_HT)]")
+		stat("IQ: \Roman [get_stat(stat_IQ)]")
+		stat("SPD: \Roman [get_basic_speed()]")
+		stat("WIL: \Roman [get_stat(stat_WIL)]")
+		stat("PER: \Roman [get_stat(stat_PER)]")
 		stat("PATRON: [PATRON]")
 
 /mob/living/carbon/Stat()
@@ -923,7 +926,7 @@
 	else
 		clear_fullscreen("brute")*/
 
-	var/hurtdamage = ((get_complex_pain() / (STAEND * 10)) * 100) //what percent out of 100 to max pain
+	var/hurtdamage = ((get_complex_pain() / (get_stat(stat_HT) * 10)) * 100) //what percent out of 100 to max pain
 	if(hurtdamage)
 		var/severity = 0
 		switch(hurtdamage)

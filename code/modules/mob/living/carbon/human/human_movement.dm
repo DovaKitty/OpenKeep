@@ -104,7 +104,7 @@
 					var/effective = I.minstr
 					if(I.wielded)
 						effective = max(I.minstr / 2, 1)
-					if(effective > STASTR)
+					if(effective > get_stat(stat_ST))
 						if(prob(effective))
 							dropItemToGround(I, silent = FALSE)
 
