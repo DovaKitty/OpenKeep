@@ -29,10 +29,6 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/rogue/meat, /obj/item/bodypart, /obj/item/organ)
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	pooptype = null
-	STACON = 16
-	STASTR = 19
-	STASPD = 2
-	STAEND = 19
 	deaggroprob = 0
 	defprob = 20
 	defdrain = 15
@@ -44,6 +40,20 @@
 	aggressive = 1
 //	stat_attack = UNCONSCIOUS
 	remains_type = /obj/effect/decal/remains/human // Placeholder until Troll remains are sprited.
+
+/mob/living/simple_animal/hostile/retaliate/rogue/troll/Initialize()
+	. = ..()
+	gender = MALE
+	if(prob(33))
+		gender = FEMALE
+	update_icon()
+	set_stat_base(stat_ST, 20)
+	set_stat_base(stat_DX, 13)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_IQ, 7)
+	set_stat_base(stat_PER, 10)
+	set_stat_base(stat_WIL, 10)
+	set_stat_bae(stat_SPD, -1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/troll/death(gibbed)
 	..()

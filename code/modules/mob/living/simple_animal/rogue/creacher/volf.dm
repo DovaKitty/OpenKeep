@@ -31,9 +31,6 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/rogue/meat, /obj/item/bodypart, /obj/item/organ)
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	pooptype = null
-	STACON = 7
-	STASTR = 7
-	STASPD = 12
 	deaggroprob = 0
 	defprob = 35
 	defdrain = 5
@@ -58,6 +55,13 @@
 	if(prob(33))
 		gender = FEMALE
 	update_icon()
+	set_stat_base(stat_ST, 14)
+	set_stat_base(stat_DX, 12)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_IQ, 5)
+	set_stat_base(stat_PER, 14)
+	set_stat_base(stat_WIL, 11)
+	set_stat_bae(stat_SPD, 1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/wolf/death(gibbed)
 	..()

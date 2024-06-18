@@ -31,9 +31,6 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks, /obj/item/bodypart, /obj/item/organ)
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	pooptype = null
-	STACON = 3
-	STASTR = 3
-	STASPD = 6
 	deaggroprob = 0
 	defprob = 40
 	defdrain = 5
@@ -61,6 +58,12 @@
 		icon_living = "Frat"
 		icon_dead = "Frat1"
 	update_icon()
+	set_stat_base(stat_ST, 9)
+	set_stat_base(stat_DX, 13)
+	set_stat_base(stat_HT, 13)
+	set_stat_base(stat_IQ, 5)
+	set_stat_base(stat_PER, 12)
+	set_stat_base(stat_WIL, 10)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/bigrat/find_food()
 	. = ..()

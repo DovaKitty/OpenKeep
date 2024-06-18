@@ -121,7 +121,7 @@
 						emote("painscream")
 						visible_message("<span class='warning'>[src] shudders in pain!</span>",
 									"<span class='warning'>I'm shuddering in pain!</span>")
-						stun(50)
+						Stun(50)
 					if ("Critical Failure")
 						mob_timers["painstun"] = world.time
 						Immobilize(10)
@@ -129,8 +129,8 @@
 						visible_message("<span class='warning'>[src] freezes in pain!</span>",
 									"<span class='warning'>I'm frozen in pain!</span>")
 						sleep(10)
-						stun(110)
-						knockdown(110)
+						Stun(110)
+						Knockdown(110)
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return

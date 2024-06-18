@@ -32,11 +32,17 @@
 	attack_verb_simple = "headbutt"
 	melee_damage_lower = 10
 	melee_damage_upper = 12
-	STASPD = 4
-	STACON = 4
-	STASTR = 4
 	childtype = list(/mob/living/simple_animal/hostile/retaliate/rogue/cow/cowlet = 95, /mob/living/simple_animal/hostile/retaliate/rogue/cow/bullet = 5)
 	remains_type = /obj/effect/decal/remains/cow
+
+/mob/living/simple_animal/hostile/retaliate/rogue/cow/Initialize()
+	. = ..()
+	set_stat_base(stat_ST, 20)
+	set_stat_base(stat_DX, 8)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_WIL, 8)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_SPD, -1)
 
 /obj/effect/decal/remains/cow
 	name = "remains"
@@ -73,11 +79,17 @@
 	milkies = FALSE
 	melee_damage_lower = 1
 	melee_damage_upper = 6
-	STACON = 5
-	STASTR = 5
-	STASPD = 5
 	defprob = 50
 	adult_growth = /mob/living/simple_animal/hostile/retaliate/rogue/cow
+
+/mob/living/simple_animal/hostile/retaliate/rogue/cow/cowlet/Initialize()
+	. = ..()
+	set_stat_base(stat_ST, 10)
+	set_stat_base(stat_DX, 9)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 8)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_SPD, 0)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/cow/cowlet/get_emote_frequency()
 	return 55100
@@ -168,10 +180,16 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat,/obj/item/reagent_containers/food/snacks/grown/oat)
 	footstep_type = FOOTSTEP_MOB_SHOE
 	pooptype = /obj/item/natural/poo/cow
-	STACON = 20
-	STASTR = 12
-	STASPD = 2
 	remains_type = /obj/effect/decal/remains/cow
+
+/mob/living/simple_animal/hostile/retaliate/rogue/bull/Initialize()
+	. = ..()
+	set_stat_base(stat_ST, 23)
+	set_stat_base(stat_DX, 8)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_WIL, 9)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_SPD, -1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/bull/get_sound(input)
 	switch(input)
@@ -253,10 +271,16 @@
 	milkies = FALSE
 	melee_damage_lower = 1
 	melee_damage_upper = 6
-	STACON = 5
-	STASTR = 5
-	STASPD = 5
 	adult_growth = /mob/living/simple_animal/hostile/retaliate/rogue/bull
+
+/mob/living/simple_animal/hostile/retaliate/rogue/cow/cowlet/Initialize()
+	. = ..()
+	set_stat_base(stat_ST, 10)
+	set_stat_base(stat_DX, 9)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 8)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_SPD, 0)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/cow/bullet/get_emote_frequency()
 	return 55100

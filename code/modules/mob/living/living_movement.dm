@@ -58,9 +58,9 @@
 			mod = CONFIG_GET(number/movedelay/run_delay)
 		if(MOVE_INTENT_SNEAK)
 			mod = 6
-	if(STASPD < 6)
+	if(get_basic_speed() < 3)
 		mod = mod+1
-	if(STASPD > 14)
+	if(get_basic_speed() > 7)
 		mod = mod-0.5
 	add_movespeed_modifier(MOVESPEED_ID_MOB_WALK_RUN_CONFIG_SPEED, TRUE, 100, override = TRUE, multiplicative_slowdown = mod)
 

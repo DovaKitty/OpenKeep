@@ -16,7 +16,7 @@
 	update_health_hud()
 
 /mob/living/proc/update_rogstam()
-	maxrogstam = STAEND * 100
+	maxrogstam = get_stat(stat_HT) * 100
 	if(cmode)
 		if(!HAS_TRAIT(src, TRAIT_BREADY))
 			rogstam_add(-2)

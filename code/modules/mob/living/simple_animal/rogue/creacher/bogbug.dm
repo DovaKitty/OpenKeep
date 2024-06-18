@@ -55,6 +55,12 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/bogbug/Initialize()
 	. = ..()
 	gender = MALE
+	set_stat_base(stat_ST, 10)
+	set_stat_base(stat_DX, 14)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_PER, 10)
+	set_stat_base(stat_WIL, 10)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/bogbug/death(gibbed)
 	..()

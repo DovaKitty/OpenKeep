@@ -29,10 +29,6 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/rogue/meat, /obj/item/bodypart, /obj/item/organ)
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	pooptype = null
-	STACON = 14
-	STASTR = 16
-	STASPD = 9
-	STAEND = 14
 	deaggroprob = 0
 	defprob = 30
 	defdrain = 13
@@ -44,6 +40,20 @@
 	aggressive = 1
 //	stat_attack = UNCONSCIOUS
 	remains_type = /obj/item/rogueweapon/battle
+
+/mob/living/simple_animal/hostile/retaliate/rogue/trollbog/Initialize()
+	. = ..()
+	gender = MALE
+	if(prob(33))
+		gender = FEMALE
+	update_icon()
+	set_stat_base(stat_ST, 16)
+	set_stat_base(stat_DX, 12)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_IQ, 6)
+	set_stat_base(stat_PER, 10)
+	set_stat_base(stat_WIL, 10)
+	set_stat_bae(stat_SPD, -1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/trollbog/death(gibbed)
 	..()

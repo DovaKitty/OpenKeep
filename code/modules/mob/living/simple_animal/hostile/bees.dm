@@ -33,9 +33,6 @@
 	base_intents = list(/datum/intent/simple/sting)
 	maxHealth = 30
 	health = 30
-	STACON = 2
-	STASTR = 2
-	STASPD = 13
 	spacewalk = TRUE
 	faction = list("bugs")
 	attack_sound = list('sound/vo/mobs/bee/bee_swarm.ogg')
@@ -68,6 +65,8 @@
 	. = ..()
 	generate_bee_visuals()
 	AddComponent(/datum/component/swarming)
+	set_stat_base(stat_ST, 1)
+	set_stat_base(stat_SPD, 3)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	if(beehome)

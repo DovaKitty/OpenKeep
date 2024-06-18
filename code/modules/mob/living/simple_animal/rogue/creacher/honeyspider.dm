@@ -56,6 +56,12 @@
 	if(prob(33))
 		gender = FEMALE
 	update_icon()
+	set_stat_base(stat_ST, 12)
+	set_stat_base(stat_DX, 14)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_PER, 10)
+	set_stat_base(stat_WIL, 10)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/spider/find_food()
 	. = ..()

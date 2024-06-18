@@ -3,6 +3,11 @@
 	GLOB.farm_animals++
 	if(tame)
 		tamed()
+	set_stat_base(stat_ST, 7)
+	set_stat_base(stat_DX, 9)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 8)
+	set_stat_base(stat_IQ, 3)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/Destroy()
 	..()
@@ -86,9 +91,6 @@
 	attack_verb_simple = "headbutt"
 	melee_damage_lower = 10
 	melee_damage_upper = 12
-	STASPD = 4
-	STACON = 4
-	STASTR = 4
 	childtype = list(/mob/living/simple_animal/hostile/retaliate/rogue/goat/goatlet = 90, /mob/living/simple_animal/hostile/retaliate/rogue/goat/goatletboy = 10)
 	can_buckle = TRUE
 	buckle_lying = 0
@@ -134,6 +136,14 @@
 	can_buckle = FALSE
 	buckle_lying = 0
 	can_saddle = FALSE
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goat/goatlet/Initialize()
+	..()
+	set_stat_base(stat_ST, 4)
+	set_stat_base(stat_DX, 9)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 7)
+	set_stat_base(stat_IQ, 3)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/goatlet/get_emote_frequency()
 	return 55100
@@ -212,9 +222,6 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat,/obj/item/reagent_containers/food/snacks/grown/oat,/obj/item/reagent_containers/food/snacks/grown/apple)
 	footstep_type = FOOTSTEP_MOB_SHOE
 	pooptype = /obj/item/natural/poo/horse
-	STACON = 7
-	STASTR = 12
-	STASPD = 2
 	can_buckle = TRUE
 	buckle_lying = 0
 	can_saddle = FALSE
@@ -251,6 +258,11 @@
 	GLOB.farm_animals++
 	if(tame)
 		tamed()
+	set_stat_base(stat_ST, 8)
+	set_stat_base(stat_DX, 9)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 8)
+	set_stat_base(stat_IQ, 3)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goatmale/Destroy()
 	..()
@@ -350,13 +362,18 @@
 	milkies = FALSE
 	melee_damage_lower = 1
 	melee_damage_upper = 6
-	STACON = 5
-	STASTR = 5
-	STASPD = 5
 	adult_growth = /mob/living/simple_animal/hostile/retaliate/rogue/goatmale
 	can_buckle = FALSE
 	buckle_lying = 0
 	can_saddle = FALSE
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goat/goatletboy/Initialize()
+	..()
+	set_stat_base(stat_ST, 4)
+	set_stat_base(stat_DX, 9)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 7)
+	set_stat_base(stat_IQ, 3)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/goatletboy/get_emote_frequency()
 	return 55100

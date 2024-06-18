@@ -37,9 +37,6 @@
 	var/list/validColors = list("brown","black","white")
 	var/static/chicken_count = 0
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
-	STACON = 1
-	STASTR = 1
-	STASPD = 5
 	tame = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/rogue/chicken/get_sound(input)
@@ -100,6 +97,10 @@
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 	++chicken_count
+	set_stat_base(stat_ST, 3)
+	set_stat_base(stat_DX, 10)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_IQ, 3)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/chicken/Destroy()
 	--chicken_count
