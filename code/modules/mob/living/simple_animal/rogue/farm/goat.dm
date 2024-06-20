@@ -128,9 +128,6 @@
 	gender = FEMALE
 	melee_damage_lower = 1
 	melee_damage_upper = 6
-	STACON = 5
-	STASTR = 5
-	STASPD = 5
 	defprob = 50
 	adult_growth = /mob/living/simple_animal/hostile/retaliate/rogue/goat
 	can_buckle = FALSE

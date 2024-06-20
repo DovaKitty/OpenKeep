@@ -32,10 +32,6 @@
 	response_disarm_simple = "gently push aside"
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
-	STASTR = 3
-	STAEND = 4
-	STASPD = 3
-	STACON = 3
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -45,6 +41,13 @@
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
 	verbs += /mob/living/proc/lay_down
+	set_stat_base(stat_ST, 4)
+	set_stat_base(stat_DX, 14)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 11)
+	set_stat_base(stat_PER, 12)
+	set_stat_base(stat_IQ, 4)
+	set_stat_base(stat_SPD, 1)
 
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()

@@ -93,8 +93,8 @@
 		if(!isturf(loc))
 			if(isliving(user))
 				var/mob/living/L = user
-				if(prob(L.STASPD * 1.5))
-					..()
+				var/snatch_check = L.success_roll(L.stat_DX, 2) // DX 12 has 50% chance to snatch
+				if(snatch_check == ("Success" || "Critical Success"))
 				else
 					dir = pick(GLOB.cardinals)
 					step(src, dir)
@@ -140,7 +140,8 @@
 	if(!dead)
 		if(isliving(user))
 			var/mob/living/L = user
-			if(prob(L.STASPD * 2))
+			var/snatch_check = L.success_roll(L.stat_DX, 1) // DX 11 has 50% chance to snatch
+			if(snatch_check == ("Success" || "Critical Success"))
 				..()
 			else
 				if(isturf(loc))

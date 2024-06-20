@@ -60,7 +60,8 @@
 	else
 		if(isliving(user))
 			var/mob/living/L = user
-			if(prob(L.STASPD * 2))
+			var/snatch_check = L.success_roll(L.stat_DX, 2) // DX 12 has 50% chance to snatch
+			if(snatch_check == ("Success" || "Critical Success"))
 				..()
 			else
 				if(isturf(loc))
@@ -100,7 +101,8 @@
 	if(!dead)
 		if(isliving(user) && isturf(loc))
 			var/mob/living/L = user
-			if(prob(L.STASPD * 2))
+			var/snatch_check = L.success_roll(L.stat_DX, 2) // DX 12 has 50% chance to snatch
+			if(snatch_check == ("Success" || "Critical Success"))
 				..()
 			else
 				to_chat(user, "<span class='warning'>[src] gets away!</span>")

@@ -53,7 +53,7 @@
 	set_stat_base(stat_IQ, 6)
 	set_stat_base(stat_PER, 10)
 	set_stat_base(stat_WIL, 10)
-	set_stat_bae(stat_SPD, -1)
+	set_stat_base(stat_SPD, -1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/trollbog/death(gibbed)
 	..()

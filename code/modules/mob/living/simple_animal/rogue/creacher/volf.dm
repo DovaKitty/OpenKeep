@@ -61,7 +61,7 @@
 	set_stat_base(stat_IQ, 5)
 	set_stat_base(stat_PER, 14)
 	set_stat_base(stat_WIL, 11)
-	set_stat_bae(stat_SPD, 1)
+	set_stat_base(stat_SPD, 1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/wolf/death(gibbed)
 	..()

@@ -12,10 +12,6 @@
 	melee_damage_upper = 60
 	maxHealth = 2500
 	health = 2500
-	STACON = 19
-	STASTR = 18
-	STASPD = 10
-	STAEND = 19
 	defprob = 30
 	defdrain = 15
 	ranged = 1
@@ -32,6 +28,16 @@
 	projectilesound = 'sound/foley/flesh_rem2.ogg'
 	alpha = 50
 	footstep_type = FOOTSTEP_MOB_HEAVY
+
+/mob/living/simple_animal/hostile/jungle/mega_arachnid/Initialize()
+	..()
+	set_stat_base(stat_ST, 19)
+	set_stat_base(stat_DX, 13)
+	set_stat_base(stat_HT, 13)
+	set_stat_base(stat_WIL, 10)
+	set_stat_base(stat_PER, 10)
+	set_stat_base(stat_IQ, 4)
+	set_stat_base(stat_SPD, 1)
 
 /mob/living/simple_animal/hostile/jungle/mega_arachnid/Life()
 	..()

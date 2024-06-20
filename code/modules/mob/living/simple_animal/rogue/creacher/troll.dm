@@ -50,10 +50,10 @@
 	set_stat_base(stat_ST, 20)
 	set_stat_base(stat_DX, 13)
 	set_stat_base(stat_HT, 12)
-	set_stat_base(stat_IQ, 7)
+	set_stat_base(stat_IQ, 6)
 	set_stat_base(stat_PER, 10)
 	set_stat_base(stat_WIL, 10)
-	set_stat_bae(stat_SPD, -1)
+	set_stat_base(stat_SPD, -1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/troll/death(gibbed)
 	..()

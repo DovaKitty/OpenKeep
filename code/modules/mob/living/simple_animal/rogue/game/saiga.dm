@@ -65,9 +65,6 @@
 	melee_damage_upper = 20
 	retreat_distance = 10
 	minimum_distance = 10
-	STASPD = 15
-	STACON = 8
-	STASTR = 9
 	childtype = list(/mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigakid = 70, /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigaboy = 30)
 	pixel_x = -8
 	attack_sound = list('sound/vo/mobs/saiga/attack (1).ogg','sound/vo/mobs/saiga/attack (2).ogg')
@@ -76,6 +73,17 @@
 	can_saddle = TRUE
 	aggressive = 1
 	remains_type = /obj/effect/decal/remains/saiga
+
+/mob/living/simple_animal/hostile/retaliate/rogue/saiga/Initialize()
+	..()
+	if(tame)
+		tamed()
+	set_stat_base(stat_ST, 16)
+	set_stat_base(stat_DX, 10)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_WIL, 10)
+	set_stat_base(stat_IQ, 4)
+	set_stat_base(stat_SPD, 2)
 
 /obj/effect/decal/remains/saiga
 	name = "remains"
@@ -113,15 +121,23 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 6
 	gender = FEMALE
-	STACON = 5
-	STASTR = 5
-	STASPD = 5
 	defprob = 50
 	pixel_x = -16
 	adult_growth = /mob/living/simple_animal/hostile/retaliate/rogue/saiga
 	tame = TRUE
 	can_buckle = FALSE
 	aggressive = 1
+
+/mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigakid/Initialize()
+	..()
+	if(tame)
+		tamed()
+	set_stat_base(stat_ST, 6)
+	set_stat_base(stat_DX, 12)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 10)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_SPD, 1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigakid/get_emote_frequency()
 	return 55100
@@ -200,9 +216,6 @@
 	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat,/obj/item/reagent_containers/food/snacks/grown/oat,/obj/item/reagent_containers/food/snacks/grown/apple)
 	footstep_type = FOOTSTEP_MOB_SHOE
 	pooptype = /obj/item/natural/poo/horse
-	STACON = 15
-	STASTR = 11
-	STASPD = 12
 	pixel_x = -8
 	attack_sound = list('sound/vo/mobs/saiga/attack (1).ogg','sound/vo/mobs/saiga/attack (2).ogg')
 	can_buckle = TRUE
@@ -242,6 +255,12 @@
 	..()
 	if(tame)
 		tamed()
+	set_stat_base(stat_ST, 17)
+	set_stat_base(stat_DX, 10)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_WIL, 10)
+	set_stat_base(stat_IQ, 4)
+	set_stat_base(stat_SPD, 2)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saigabuck/taunted(mob/user)
 	emote("aggro")
@@ -330,13 +349,21 @@
 	milkies = FALSE
 	melee_damage_lower = 1
 	melee_damage_upper = 6
-	STACON = 5
-	STASTR = 5
-	STASPD = 5
 	adult_growth = /mob/living/simple_animal/hostile/retaliate/rogue/saigabuck
 	tame = TRUE
 	can_buckle = FALSE
 	aggressive = 1
+
+/mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigaboy/Initialize()
+	..()
+	if(tame)
+		tamed()
+	set_stat_base(stat_ST, 6)
+	set_stat_base(stat_DX, 12)
+	set_stat_base(stat_HT, 10)
+	set_stat_base(stat_WIL, 10)
+	set_stat_base(stat_IQ, 3)
+	set_stat_base(stat_SPD, 1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigaboy/get_emote_frequency()
 	return 55100

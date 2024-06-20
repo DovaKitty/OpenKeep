@@ -27,9 +27,6 @@
 	food_type = list(/obj/item/bodypart, /obj/item/organ, /obj/item/reagent_containers/food/snacks/rogue/meat)
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	pooptype = null
-	STACON = 6
-	STASTR = 10
-	STASPD = 10
 	deaggroprob = 0
 	defprob = 35
 	defdrain = 5
@@ -56,7 +53,7 @@
 	if(prob(33))
 		gender = FEMALE
 	update_icon()
-	set_stat_base(stat_ST, 12)
+	set_stat_base(stat_ST, 10)
 	set_stat_base(stat_DX, 14)
 	set_stat_base(stat_HT, 12)
 	set_stat_base(stat_IQ, 3)

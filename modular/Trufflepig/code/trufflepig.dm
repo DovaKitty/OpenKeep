@@ -107,9 +107,6 @@
 	melee_damage_lower = 8
 	melee_damage_upper = 14
 	minimum_distance = 1
-	STASPD = 2
-	STACON = 8
-	STASTR = 12
 	can_buckle = FALSE
 	buckle_lying = 0
 	can_saddle = FALSE
@@ -118,6 +115,15 @@
 	response_help_simple = "give the signal to the"
 	var/hangry_meter = 0
 
+/mob/living/simple_animal/hostile/retaliate/rogue/trufflepig/Initialize()
+	..()
+	set_stat_base(stat_ST, 10)
+	set_stat_base(stat_DX, 10)
+	set_stat_base(stat_HT, 12)
+	set_stat_base(stat_WIL, 11)
+	set_stat_base(stat_PER, 11)
+	set_stat_base(stat_IQ, 5)
+	set_stat_base(stat_SPD, -1)
 
 /obj/effect/decal/remains/pig
 	name = "remains"

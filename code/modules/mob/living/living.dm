@@ -182,7 +182,7 @@
 	if(m_intent == MOVE_INTENT_RUN && dir == get_dir(src, M))
 		if(isliving(M))
 			var/mob/living/L = M
-			var/charge_contest = quick_contest(src, "stat_ST", L, "stat_ST")
+			var/charge_contest = quick_contest(src, src.stat_ST, L, L.stat_ST)
 			if (charge_contest == TRUE)
 				L.Knockdown(30)
 			else
@@ -209,7 +209,7 @@
 
 		//stat checking block
 		if(!(world.time % 5))
-			var/push_contest = quick_contest(src, "stat_ST", L, "stat_ST")
+			var/push_contest = quick_contest(src, src.stat_ST, L, L.stat_ST)
 			if (push_contest == TRUE)
 				visible_message("<span class='info'>[src] pushes [M].</span>")
 			else
@@ -1820,7 +1820,7 @@
 				continue
 			if(see_invisible < M.invisibility)
 				continue
-			var/sneak_contest = quick_contest(src, "stat_PER", M, "skill_Stealth")
+			var/sneak_contest = quick_contest(src, src.stat_PER, M, M.skill_Stealth)
 			if (sneak_contest == TRUE)
 				found_ping(get_turf(M), client, "hidden")
 				if(M.m_intent == MOVE_INTENT_SNEAK)

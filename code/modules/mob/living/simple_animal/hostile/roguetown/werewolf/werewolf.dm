@@ -12,9 +12,6 @@
 	health = 220
 	melee_damage_lower = 15
 	melee_damage_upper = 18
-	STASTR = 20
-	STAEND = 20
-	STASPD = 20
 	obj_damage = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = BLADEWOOSH_LARGE
@@ -29,4 +26,11 @@
 /mob/living/simple_animal/hostile/rogue/werewolf/Initialize()
 	..()
 	regenerate_icons()
+	set_stat_base(stat_ST, 20)
+	set_stat_base(stat_DX, 12)
+	set_stat_base(stat_HT, 16)
+	set_stat_base(stat_WIL, 12)
+	set_stat_base(stat_PER, 14)
+	set_stat_base(stat_IQ, 8)
+	set_stat_base(stat_SPD, 1)
 	ADD_TRAIT(src, TRAIT_SIMPLE_WOUNDS, TRAIT_GENERIC)

@@ -46,10 +46,6 @@ Difficulty: Medium
 	friendly_verb_simple = "stare down"
 	speak_emote = list("aggro")
 	armor_penetration = 30
-	STACON = 20
-	STASTR = 20
-	STASPD = 9
-	STAEND = 20
 	defprob = 10
 	defdrain = 40
 	melee_damage_lower = 70
@@ -73,6 +69,16 @@ Difficulty: Medium
 	attack_action_types = list(/datum/action/innate/megafauna_attack/fire_cone,
 							   /datum/action/innate/megafauna_attack/mass_fire,
 							   /datum/action/innate/megafauna_attack/lava_swoop)
+
+/mob/living/simple_animal/hostile/megafauna/dragon/Initialize()
+	..()
+	set_stat_base(stat_ST, 40)
+	set_stat_base(stat_DX, 12)
+	set_stat_base(stat_HT, 14)
+	set_stat_base(stat_WIL, 16)
+	set_stat_base(stat_PER, 16)
+	set_stat_base(stat_IQ, 6)
+	set_stat_base(stat_SPD, -2)
 
 /datum/action/innate/megafauna_attack/fire_cone
 	name = "Fire Cone"

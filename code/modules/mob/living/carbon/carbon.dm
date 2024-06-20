@@ -210,7 +210,7 @@
 					if(!throwable_mob.buckled)
 						thrown_thing = throwable_mob
 						thrown_speed = 1
-						var/throw_contest = quick_contest(src, "stat_ST", throwable_mob, "stat_ST")
+						var/throw_contest = quick_contest(src, src.stat_ST, throwable_mob, throwable_mob.stat_ST)
 						if (throw_contest == TRUE)
 							thrown_range = 4
 						else
