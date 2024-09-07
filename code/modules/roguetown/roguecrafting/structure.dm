@@ -259,9 +259,6 @@
 	craftdiff = 0
 
 /obj/structure/closet/crate/chest/crafted
-	name = "sturdy chest"
-	icon_state = "chest_neu"
-	base_icon_state = "chest_neu"
 	keylock = FALSE
 	sellprice = 6
 

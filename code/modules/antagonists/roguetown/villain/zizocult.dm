@@ -816,9 +816,6 @@ GLOBAL_LIST_EMPTY(ritualslist)
 	S.set_up(1, 1, C)
 	S.start()
 
-	new /obj/item/clothing/head/roguetown/helmet/leather/hood_ominous(C)
-	new /obj/item/clothing/head/roguetown/helmet/leather/hood_ominous(C)
-
 	new /obj/item/rogueweapon/sword(C)
 	new /obj/item/rogueweapon/huntingknife(C)
 	new /obj/item/rogueweapon/huntingknife(C)

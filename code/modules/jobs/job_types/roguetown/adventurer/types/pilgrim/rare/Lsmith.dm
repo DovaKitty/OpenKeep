@@ -1,4 +1,4 @@
-//master smith
+//dwarf master smith
 
 /datum/advclass/pilgrim/rare/masterblacksmith
 	name = "Master Blacksmith"

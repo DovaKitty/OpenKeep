@@ -28,7 +28,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	tastes = list("burnt flesh" = 1)
 	eat_effect = null
-	rotprocess = SHELFLIFE_SHORT
+	rotprocess = 12 MINUTES
 	sellprice = 0
 
 /obj/item/reagent_containers/food/snacks/crow/burning(input as num)
@@ -41,7 +41,7 @@
 
 /obj/item/reagent_containers/food/snacks/crow/dead
 	dead = TRUE
-	rotprocess = SHELFLIFE_SHORT
+	rotprocess = 15 MINUTES
 
 /obj/item/reagent_containers/food/snacks/crow/Initialize()
 	. = ..()
@@ -85,7 +85,7 @@
 		dead = TRUE
 		playsound(src, 'sound/vo/mobs/rat/rat_death.ogg', 100, FALSE, -1)
 		icon_state = "[icon_state]1"
-		rotprocess = SHELFLIFE_SHORT
+		rotprocess = 15 MINUTES
 		return 1
 	. = ..()
 

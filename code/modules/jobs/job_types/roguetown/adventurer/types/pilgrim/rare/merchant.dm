@@ -12,8 +12,6 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/merchant
 	category_tags = list(CTAG_PILGRIM)
 	maximum_possible_slots = 2
-	pickprob = 30
-	min_pq = 0
 
 
 /datum/outfit/job/roguetown/adventurer/merchant/pre_equip(mob/living/carbon/human/H)

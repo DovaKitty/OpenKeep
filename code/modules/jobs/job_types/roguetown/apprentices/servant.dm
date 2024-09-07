@@ -3,17 +3,12 @@
 	flag = SERVANT
 	department_flag = APPRENTICES
 	faction = "Station"
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 0
+	spawn_positions = 0
 
 	allowed_races = list(
 		"Humen",
-		"Elf",
-		"Half-Elf",
-		"Dwarf",
-		"Tiefling",
-		"Dark Elf",
-		"Aasimar"
+		"Half-Elf"
 	)
 	allowed_ages = list(AGE_ADULT)
 
@@ -28,33 +23,23 @@
 	..()
 
 	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/cooking, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/labor/farming, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/music, pick(0,1,1), TRUE)
+		H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 1, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 1, TRUE)
 	if(H.gender == MALE)
 		pants = /obj/item/clothing/under/roguetown/tights
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 		shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
 		belt = /obj/item/storage/belt/rogue/leather/rope
 		neck = /obj/item/storage/belt/rogue/pouch
-		beltr = /obj/item/roguekey/manor
+		beltr = /obj/item/keyring/servant
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/black
-		H.change_stat("strength", -1)
 		H.change_stat("perception", 1)
-		H.change_stat("speed", 1)
-		H.change_stat("endurance", 1)
 	else
 		armor = /obj/item/clothing/suit/roguetown/shirt/rags
 		shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 		neck = /obj/item/storage/belt/rogue/pouch
 		belt = /obj/item/storage/belt/rogue/leather/rope
-		beltr = /obj/item/roguekey/manor
-		H.change_stat("strength", -1)
+		beltr = /obj/item/keyring/servant
 		H.change_stat("perception", 1)
-		H.change_stat("speed", 1)
-		H.change_stat("endurance", 1)
