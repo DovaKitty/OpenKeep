@@ -244,7 +244,7 @@
 	virginity = FALSE
 	if(mind)
 		var/datum/patron/A = P.patron
-		if(A.name != "Eora" || (Z.marriedto != X.real_name)) // If someone worships Eora and is zexing their spouse, it does not matter if they are clergy.
+		if(Z.marriedto != X.real_name) // Clergy can have zex within marriage, but get punished for zex outside of it.
 			switch(mind.assigned_role)
 				if("Priest")
 					P.add_stress(/datum/stressevent/virginchurch)
