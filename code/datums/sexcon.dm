@@ -77,7 +77,7 @@
 		return ..()
 	if(!istype(target))
 		return
-	if(T.Unconscious)
+	if(!T.CONSCIOUS)
 		to_chat(GLOB.admins, "<span class='adminnotice'>[user] tried to fuck [target] while they were asleep.")
 		to_chat(user, "<span class='warning'>I can't do this. What am I thinking!?</span>")
 		adjust_playerquality(-1, H.ckey, reason="Tried to have sex with a sleeping victim.")
@@ -238,7 +238,7 @@
 	var/virginity = FALSE
 
 /mob/living/carbon/human/proc/on_virgin_loss(zexing, zexed) // which order zexing, zexed are in should not matter, as it just checks to see if one is married to the other.
-	var/mob/living/carbon/P = src
+	var/mob/living/carbon/human/P = src
 	var/mob/living/carbon/human/Z = zexing
 	var/mob/living/carbon/human/X = zexed
 	virginity = FALSE
@@ -249,28 +249,39 @@
 				if("Priest")
 					P.add_stress(/datum/stressevent/virginchurch)
 					adjust_triumphs(-3)
-					if(A.name != "Eora" && devotion)
-						devotion = 0
+					if(A.name != "Eora" && P.devotion)
+						P.devotion = 0
+						if(A.name == "Noc")
+							P.max_devotion = 0
 				if("Acolyte")
 					P.add_stress(/datum/stressevent/virginchurch)
 					adjust_triumphs(-3)
-					if(A.name != "Eora" && devotion)
-						devotion = 0
+					if(A.name != "Eora" && P.devotion)
+						P.devotion = 0
+						if(A.name == "Noc")
+							P.max_devotion = 0
 				if("Cleric")
 					P.add_stress(/datum/stressevent/virginchurch)
 					adjust_triumphs(-3)
-					if(A.name != "Eora" && devotion)
-						devotion = 0
+					if(A.name != "Eora" && P.devotion)
+						P.devotion = 0
+						if(A.name == "Noc")
+							P.max_devotion = 0
 				if("Paladin")
 					P.add_stress(/datum/stressevent/virginchurch)
 					adjust_triumphs(-3)
-					if(A.name != "Eora" && devotion)
-						devotion = 0
+					if(A.name != "Eora" && P.devotion)
+						P.devotion = 0
+						if(A.name == "Noc")
+							P.max_devotion = 0
 				if("Templar")
 					P.add_stress(/datum/stressevent/virginchurch)
 					adjust_triumphs(-3)
-					if(A.name != "Eora" && devotion)
-						devotion = 0
+					if(A.name != "Eora" && P.devotion)
+						P.devotion = 0
+						if(A.name == "Noc")
+							P.max_devotion = 0
+
 
 /datum/sex_controller/proc/begin_assfuck(mob/living/user)
 	if(!user)
@@ -399,7 +410,7 @@
 			testing("mfuckfail2")
 			return
 	if(user.cmode)
-		to_chat(GLOB.admins, "<span class='adminnotice'>[user] tried to fuck [target] while they were in combat mode. This should not be possible, contact coders.")
+		to_chat(GLOB.admins, "<span class='adminnotice'>[onwer] tried to fuck [user] while they were in combat mode. This should not be possible, contact coders.")
 		if(!user.stat)
 			to_chat(owner, "<span class='warning'>Not through clenched teeth.</span>")
 			return
