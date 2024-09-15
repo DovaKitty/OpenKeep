@@ -43,7 +43,6 @@
 			cloak = /obj/item/clothing/cloak/stabard/templar/necra
 		if("Eora")
 			neck = /obj/item/clothing/neck/roguetown/psicross/eora
-			H.virginity = FALSE
 		if("Pestra")
 			neck = /obj/item/clothing/neck/roguetown/psicross/pestra
 			neck = /obj/item/clothing/neck/roguetown/chaincoif

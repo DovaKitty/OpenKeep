@@ -65,9 +65,27 @@
 
 /mob/living/carbon/MiddleMouseDrop_T(mob/living/target, mob/living/user)
 	// SELF ONTO SELF
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+	else
+		return // No sex for you.
+	if(ishuman(target))
+		var/mob/living/carbon/human/T = target
+	else // Certainly no sex for you.
+		return
 	if(user.mmb_intent)
 		return ..()
 	if(!istype(target))
+		return
+	if(T.Unconscious)
+		to_chat(GLOB.admins, "<span class='adminnotice'>[user] tried to fuck [target] while they were asleep.")
+		to_chat(user, "<span class='warning'>I can't do this. What am I thinking!?</span>")
+		adjust_playerquality(-1, H.ckey, reason="Tried to have sex with a sleeping victim.")
+		return
+	if(T.cmode)
+		to_chat(GLOB.admins, "<span class='adminnotice'>[user] tried to fuck [target] while they were in combat mode.")
+		to_chat(user, "<span class='warning'>I can't do this. What am I thinking!?</span>")
+		adjust_playerquality(-1, H.ckey, reason="Tried to have sex with a resisting victim.")
 		return
 	if(!user.can_do_sex())
 		to_chat(user, "<span class='warning'>I can't do this.</span>")
@@ -208,27 +226,51 @@
 		if(H.virginity)
 			user.visible_message("<span class='warning'>[user] loses her purity!</span>")
 			H.flash_fullscreen("redflash3")
-			H.on_virgin_loss()
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
 /mob/living/carbon/human
 	var/virginity = FALSE
 
-/mob/living/carbon/human/proc/on_virgin_loss()
+/mob/living/carbon/human/proc/on_virgin_loss(zexing, zexed) // which order zexing, zexed are in should not matter, as it just checks to see if one is married to the other.
 	var/mob/living/carbon/P = src
+	var/mob/living/carbon/human/Z = zexing
+	var/mob/living/carbon/human/X = zexed
 	virginity = FALSE
 	if(mind)
-		switch(mind.assigned_role)
-			if("Priest")
-				P.add_stress(/datum/stressevent/virginchurch)
-				adjust_triumphs(-2)
-			if("Acolyte")
-				P.add_stress(/datum/stressevent/virginchurch)
-				adjust_triumphs(-3)
-			if("Cleric")
-				P.add_stress(/datum/stressevent/virginchurch)
-				adjust_triumphs(-2)
+		var/datum/patron/A = P.patron
+		if(A.name != "Eora" || (Z.marriedto != X.real_name)) // If someone worships Eora and is zexing their spouse, it does not matter if they are clergy.
+			switch(mind.assigned_role)
+				if("Priest")
+					P.add_stress(/datum/stressevent/virginchurch)
+					adjust_triumphs(-3)
+					if(A.name != "Eora" && devotion)
+						devotion = 0
+				if("Acolyte")
+					P.add_stress(/datum/stressevent/virginchurch)
+					adjust_triumphs(-3)
+					if(A.name != "Eora" && devotion)
+						devotion = 0
+				if("Cleric")
+					P.add_stress(/datum/stressevent/virginchurch)
+					adjust_triumphs(-3)
+					if(A.name != "Eora" && devotion)
+						devotion = 0
+				if("Paladin")
+					P.add_stress(/datum/stressevent/virginchurch)
+					adjust_triumphs(-3)
+					if(A.name != "Eora" && devotion)
+						devotion = 0
+				if("Templar")
+					P.add_stress(/datum/stressevent/virginchurch)
+					adjust_triumphs(-3)
+					if(A.name != "Eora" && devotion)
+						devotion = 0
 
 /datum/sex_controller/proc/begin_assfuck(mob/living/user)
 	if(!user)
@@ -276,6 +318,14 @@
 		user.emote("embed", forced = TRUE)
 	playsound(owner, list('sound/misc/mat/insert (1).ogg','sound/misc/mat/insert (2).ogg'), 20, TRUE, ignore_walls = FALSE)
 	owner.visible_message("<span class='[!user.cmode ? "love" : "warning"]'>[owner] zodomizes [user].</span>")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.virginity)
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
@@ -325,6 +375,14 @@
 	fucking = user
 	user.sexcon.ontits = owner
 	owner.visible_message("<span class='[!user.cmode ? "love" : "warning"]'>[owner] uses [user]'s chest.</span>")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.virginity)
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
@@ -341,6 +399,7 @@
 			testing("mfuckfail2")
 			return
 	if(user.cmode)
+		to_chat(GLOB.admins, "<span class='adminnotice'>[user] tried to fuck [target] while they were in combat mode. This should not be possible, contact coders.")
 		if(!user.stat)
 			to_chat(owner, "<span class='warning'>Not through clenched teeth.</span>")
 			return
@@ -378,6 +437,14 @@
 	user.sexcon.inmouth = owner
 	playsound(owner, list('sound/misc/mat/insert (1).ogg','sound/misc/mat/insert (2).ogg'), 20, TRUE, ignore_walls = FALSE)
 	owner.visible_message("<span class='[!user.cmode ? "love" : "warning"]'>[owner] feeds [user].</span>")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.virginity)
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
@@ -432,6 +499,14 @@
 	user.sexcon.weeating = owner
 	riding = user
 	owner.visible_message("<span class='[!user.cmode ? "love" : "warning"]'>[owner] rides [riding]'s face.</span>")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.virginity)
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
@@ -491,6 +566,14 @@
 	inpussy = user
 	playsound(owner, list('sound/misc/mat/insert (1).ogg','sound/misc/mat/insert (2).ogg'), 20, TRUE, ignore_walls = FALSE)
 	owner.visible_message("<span class='[!user.cmode ? "love" : "warning"]'>[owner] rides [riding].</span>")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.virginity)
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
@@ -545,6 +628,14 @@
 		owner.visible_message("<span class='[!weeating.cmode ? "love" : "warning"]'>[owner] sucks [weeating].</span>")
 	else
 		owner.visible_message("<span class='[!weeating.cmode ? "love" : "warning"]'>[owner] eats [weeating].</span>")
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.virginity)
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
@@ -590,6 +681,14 @@
 		else
 			owner.visible_message("<span class='[!owner.cmode ? "love" : "warning"]'>[fapping.grabbee] rubs [owner].</span>")
 	G.dependents += src
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.virginity)
+			H.on_virgin_loss(owner.real_name, user.real_name)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/O = owner
+		if(O.virginity)
+			O.on_virgin_loss(owner.real_name, user.real_name)
 	START_PROCESSING(SSsex, user.sexcon)
 	START_PROCESSING(SSsex, src)
 
@@ -1119,32 +1218,13 @@
 			owner.visible_message("<span class='notice'>[owner] feeds [fucking]!</span>")
 			add_cum_floor(get_turf(fucking))
 			if(fucking && fucking.sexcon.weeating == owner)
-				if(fucking.cmode)
-					if(ishuman(owner))
-						var/mob/living/carbon/human/H = owner
-						var/wuzantag
-						if(H.mind)
-							if(H.mind.antag_datums)
-								if(H.mind.antag_datums.len)
-									wuzantag = TRUE
-						if(!wuzantag)
-							adjust_playerquality(-2, H.ckey, reason="Raped as a non villain.")
-					addtimer(CALLBACK(eatingus, /mob/.proc/emote, "gag"), rand(10,20))
 		if("insideass")
 			if(owner.has_flaw(/datum/charflaw/addiction/lovefiend))
 				owner.sate_addiction()
 			if(ishuman(owner))
 				var/mob/living/carbon/human/H = owner
 				if(H.virginity)
-					H.on_virgin_loss()
-				if(fucking && fucking.cmode)
-					var/wuzantag
-					if(H.mind)
-						if(H.mind.antag_datums)
-							if(H.mind.antag_datums.len)
-								wuzantag = TRUE
-					if(!wuzantag)
-						adjust_playerquality(-2, H.ckey, reason="Raped as a non villain.")
+					H.on_virgin_loss(H.real_name, fucking.real_name)
 			C.add_stress(/datum/stressevent/cumok)
 			owner.visible_message("<span class='notice'>[owner] tightens in ecstasy!</span>")
 			playsound(owner, 'sound/misc/mat/endin.ogg', 100, TRUE, ignore_walls = FALSE)
@@ -1156,8 +1236,7 @@
 			if(ishuman(owner))
 				var/mob/living/carbon/human/H = owner
 				if(H.virginity)
-					H.on_virgin_loss()
-			if(fucking && !fucking.cmode)
+					H.on_virgin_loss(H.real_name, fucking.real_name)
 				var/yee
 				if(ishuman(owner) && ishuman(fucking))
 					var/mob/living/carbon/human/H = owner
@@ -1187,42 +1266,9 @@
 							F.adjust_triumphs(1)
 				if(!yee)
 					C.add_stress(/datum/stressevent/cummax)
-			else
-				C.add_stress(/datum/stressevent/cumok)
-				var/mob/living/M = owner
-				var/wuzantag
-				if(M.mind)
-					if(M.mind.antag_datums)
-						if(M.mind.antag_datums.len)
-							wuzantag = TRUE
-				if(!wuzantag)
-					adjust_playerquality(-2, M.ckey, reason="Raped as a non villain.")
-					to_chat(GLOB.admins, "<span class='adminnotice'> [fucking] resisted [owner] during sex")
-			playsound(fucking, 'sound/misc/mat/endin.ogg', 100, TRUE, ignore_walls = FALSE)
-			owner.visible_message("<span class='adminnotice'>[owner] tightens in ecstasy!</span>")
-			add_cum_floor(get_turf(fucking))
-
 		if("sleepingbeauty")
-			if(owner.has_flaw(/datum/charflaw/addiction/lovefiend))
-				owner.sate_addiction()
-			if(ishuman(owner))
-				var/mob/living/carbon/human/H = owner
-				if(H.virginity)
-					H.on_virgin_loss()
-				if(fucking)
-					var/wuzantag
-					if(H.mind)
-						if(H.mind.antag_datums)
-							if(H.mind.antag_datums.len)
-								wuzantag = TRUE
-					if(!wuzantag)
-						adjust_playerquality(-1, H.ckey, reason="Fucked a sleeping player as a non-villain.")
-						to_chat(GLOB.admins, "<span class='adminnotice'>[owner] fucked [fucking] while they were asleep.")
-			C.add_stress(/datum/stressevent/cumok)
-			playsound(fucking, 'sound/misc/mat/endin.ogg', 100, TRUE, ignore_walls = FALSE)
-			add_cum_floor(get_turf(fucking))
-			owner.visible_message("<span class='notice'>[owner] tightens in ecstasy!</span>")
-
+			to_chat(GLOB.admins, "<span class='adminnotice'>[owner] tried to fuck [fucking] while they were asleep. This should have been stopped. Report to the coders.")
+			return
 		if("fapself")
 			add_cum_floor(get_turf(owner))
 			owner.visible_message("<span class='notice'>[owner] spills something on the floor!</span>")
