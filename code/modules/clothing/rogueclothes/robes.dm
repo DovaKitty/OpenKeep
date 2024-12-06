@@ -108,9 +108,9 @@
 	sellprice = 100
 
 /obj/item/clothing/suit/roguetown/shirt/robe/magus
-	name = "magus's robe"
-	desc = "A dark padded robe worn by only the most mysterious of mages, the magi."
-	icon_state = "warlock"
+	name = "magus robe"
+	desc = "Dark silk robes with golden trim and a red sash, worn by the Western Inquisition."
+	icon_state = "magusrobe"
 	allowed_sex = list(MALE)
 	allowed_race = list("human", "tiefling", "aasimar")
 	sellprice = 150

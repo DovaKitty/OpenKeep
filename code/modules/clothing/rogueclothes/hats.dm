@@ -878,7 +878,6 @@
 	prevent_crits = ALL_CRITICAL_HITS_VAMP
 	max_integrity = INTEGRITY_STRONGER
 
-
 //............... Frog Helmet ............... //
 /obj/item/clothing/head/roguetown/helmet/heavy/frog
 	name = "frog helmet"
@@ -958,7 +957,16 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR
 	smeltresult = /obj/item/ingot/iron
 
-
+//............... Dream-Eater (Forgotten) Helmet ............... //
+/obj/item/clothing/head/roguetown/helmet/heavy/necked/dream
+	name = "dream-eater helmet"
+	desc = "A gold helmet with its face immortalizing the visage of the Forgotten God. Legends say it can channel terrible magic."
+	icon_state = "dreameater"
+	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR
+	smeltresult = /obj/item/ingot/gold
+	sellprice = VALUE_STEEL_HELMET+BONUS_VALUE_MODEST
+	armor = ARMOR_PLATE_BAD
+	max_integrity = INTEGRITY_STANDARD
 
 //......................................................................................................
 /*------------------\

@@ -3123,7 +3123,6 @@
 /obj/item/clothing/mask/cigarette/pipe/westman,
 /obj/item/clothing/shoes/roguetown/sandals,
 /obj/effect/decal/cleanable/dirt/cobweb,
-/obj/item/clothing/suit/roguetown/shirt/robe/magus,
 /obj/item/clothing/suit/roguetown/shirt/robe/mage,
 /turf/open/floor/rogue/tile/masonic/single,
 /area/rogue/indoors/town/magician)

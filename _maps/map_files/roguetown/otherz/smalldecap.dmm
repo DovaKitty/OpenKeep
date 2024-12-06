@@ -1846,7 +1846,6 @@
 /area/rogue/under/cavelava)
 "Ye" = (
 /obj/structure/closet/crate/roguecloset/inn/chest,
-/obj/item/clothing/suit/roguetown/shirt/robe/magus,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/red,
 /area/rogue/under/cavelava)
