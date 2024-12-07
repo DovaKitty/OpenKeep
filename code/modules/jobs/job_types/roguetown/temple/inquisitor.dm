@@ -114,6 +114,7 @@
 	outfit = /datum/outfit/job/roguetown/inquisitor/zyba
 
 	category_tags = list(CTAG_INQUISITOR)
+	allowed_sexes = list(MALE)
 
 /datum/outfit/job/roguetown/inquisitor/zyba/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -228,6 +229,7 @@
 	ADD_TRAIT(H, TRAIT_KNOWBANDITS, TRAIT_GENERIC)
 	H.verbs |= /mob/living/carbon/human/proc/torture_victim
 	//To make them look look stronger, they get the muscular body type, same as Aasimar.
+	H.dna.species.use_m = TRUE
 	H.dna.species.limbs_icon_f = 'icons/roguetown/mob/bodies/f/ft_muscular.dmi'
 	H.dna.species.dam_icon_f = 'icons/roguetown/mob/bodies/dam/dam_male.dmi'
 	H.dna.species.offset_features = null // Need to reset the offset before setting it to the new values.
