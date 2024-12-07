@@ -349,6 +349,11 @@
 	body_parts_covered = COVERAGE_TORSO
 	prevent_crits = ALL_EXCEPT_BLUNT //This having stab crit protection as a bikini is extremely funny so I will just leave it here.
 
+/obj/item/clothing/suit/roguetown/armor/amazon_chainkini/old
+	name = "amazonian armor"
+	desc = "An unusual set of chainmail armor, meant to maximize mobility. Said to be worn by the warrior women of the isle of Issa."
+	icon_state = "old_chainkini"
+	item_state = "old_chainkini"
 
 //................ Copper Heart-protector ............... //
 /obj/item/clothing/suit/roguetown/armor/cuirass/copperchest

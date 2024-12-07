@@ -479,6 +479,11 @@
 	icon_state = "tophat"
 	color = CLOTHING_SOOT_BLACK
 
+/obj/item/clothing/head/roguetown/feather
+	name = "feather band"
+	desc = "A simple beaded band with an eagle feather, a symbol of the Amazons."
+	icon_state = "featherband"
+
 
 
 //......................................................................................................
