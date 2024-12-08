@@ -29,8 +29,6 @@
 	var/datum/antagonist/new_antag = new /datum/antagonist/purishep()
 	L.mind.add_antag_datum(new_antag)
 
-/datum/job/roguetown/inquisitor/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
-	..()
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		H.advsetup = 1
@@ -86,9 +84,10 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/firearms, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/knives, 3, TRUE)
+		H.change_stat("strength", 1)
 		H.change_stat("intelligence", 2)
 		H.change_stat("perception", 2)
 		H.change_stat("speed", 2)
@@ -143,13 +142,13 @@
 	H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
-	H.change_stat("intelligence", 4)
-	H.change_stat("perception", 2)
+	H.change_stat("intelligence", 3)
+	H.change_stat("perception", 1)
 	H.change_stat("speed", 1)
-	H.change_stat("endurance", 1)
 	H.mind.adjust_spellpoints(4)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/learnspell)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+	H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock)
 	if(!H.has_language(/datum/language/zybantine))
 		H.grant_language(/datum/language/zybantine)
 		to_chat(H, "<span class='info'>I can speak Zybean with ,z before my speech.</span>")
@@ -168,7 +167,7 @@
 		H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
 		H.mind.adjust_spellpoints(1)
 		H.change_stat("intelligence", 1)
-	else // Younger Inquisitors are half-casters, with decent knife skill and dodge expert to defend themselves
+	else // Younger Zybantu Inquisitors are half-casters, with decent knife skill and dodge expert to defend themselves
 		H.mind.adjust_skillrank(/datum/skill/combat/knives, 1, TRUE)
 		H.change_stat("speed", 1)
 		ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
@@ -186,10 +185,11 @@
 	head = /obj/item/clothing/head/roguetown/feather
 	armor = /obj/item/clothing/suit/roguetown/armor/amazon_chainkini
 	backl = /obj/item/rogueweapon/polearm/halberd
-	shoes = /obj/item/clothing/shoes/roguetown/nobleboot
-	cloak = /obj/item/clothing/cloak/raincloak/furcloak
+	shoes = /obj/item/clothing/shoes/roguetown/gladiator
+	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 	belt = /obj/item/storage/belt/rogue/leather/plaquesilver
-	wrists = /obj/item/clothing/neck/roguetown/psycross/silver
+	neck = /obj/item/clothing/neck/roguetown/psycross/silver
+	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
 	beltr = /obj/item/quiver/arrows
 
@@ -228,24 +228,6 @@
 	ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_KNOWBANDITS, TRAIT_GENERIC)
 	H.verbs |= /mob/living/carbon/human/proc/torture_victim
-	//To make them look look stronger, they get the muscular body type, same as Aasimar.
-	H.dna.species.use_m = TRUE
-	H.dna.species.limbs_icon_f = 'icons/roguetown/mob/bodies/f/ft_muscular.dmi'
-	H.dna.species.dam_icon_f = 'icons/roguetown/mob/bodies/dam/dam_male.dmi'
-	H.dna.species.offset_features = null // Need to reset the offset before setting it to the new values.
-	H.dna.species.offset_features = list(OFFSET_ID = list(0,1), OFFSET_GLOVES = list(0,1), OFFSET_WRISTS = list(0,1),\
-	OFFSET_CLOAK = list(0,1), OFFSET_FACEMASK = list(0,1), OFFSET_HEAD = list(0,1), \
-	OFFSET_FACE = list(0,1), OFFSET_BELT = list(0,1), OFFSET_BACK = list(0,1), \
-	OFFSET_NECK = list(0,1), OFFSET_MOUTH = list(0,1), OFFSET_PANTS = list(0,1), \
-	OFFSET_SHIRT = list(0,1), OFFSET_ARMOR = list(0,1), OFFSET_HANDS = list(0,1), OFFSET_UNDIES = list(0,1), \
-	OFFSET_ID_F = list(0,1), OFFSET_GLOVES_F = list(0,1), OFFSET_WRISTS_F = list(0,1), OFFSET_HANDS_F = list(0,1), \
-	OFFSET_CLOAK_F = list(0,1), OFFSET_FACEMASK_F = list(0,1), OFFSET_HEAD_F = list(0,1), \
-	OFFSET_FACE_F = list(0,1), OFFSET_BELT_F = list(0,1), OFFSET_BACK_F = list(0,1), \
-	OFFSET_NECK_F = list(0,1), OFFSET_MOUTH_F = list(0,1), OFFSET_PANTS_F = list(0,1), \
-	OFFSET_SHIRT_F = list(0,1), OFFSET_ARMOR_F = list(0,1), OFFSET_UNDIES_F = list(0,1))
-	H.update_body_parts()
-	H.update_body()
-	H.update_hair()
 
 
 /mob/living/carbon/human/proc/torture_victim()

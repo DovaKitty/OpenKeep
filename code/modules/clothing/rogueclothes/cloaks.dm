@@ -950,16 +950,16 @@
 	..()
 
 //............... Battle Nun ........................... (unique kit for the role, tabard for aesthetics)
-/obj/item/clothing/cloak/battlenun
+/obj/item/clothing/stabard/battlenun
 	name = "nun vestments"
 	desc = "Chaste, righteous, merciless to the wicked."
 	color = null
 	icon_state = "battlenun"
 	item_state = "battlenun"
 	allowed_sex = list(FEMALE)
-	alternate_worn_layer = TABARD_LAYER
 	body_parts_covered = CHEST|GROIN
-	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
+	boobed = FALSE
+
 //.............inquisitor cloaks......... (For inquisitors..)
 /obj/item/clothing/cloak/cape/puritan
 	icon_state = "puritan_cape"
