@@ -142,7 +142,7 @@
 	H.set_patron(/datum/patron/forgotten)
 
 	//Armor for class
-	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
+	armor = /obj/item/clothing/suit/roguetown/armor/chainmail
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
 	head = /obj/item/clothing/head/roguetown/helmet/battlenun
 	neck = /obj/item/clothing/neck/roguetown/psycross/silver
@@ -163,7 +163,7 @@
 	H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/magic/holy, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
 	H.change_stat("strength", 1)
