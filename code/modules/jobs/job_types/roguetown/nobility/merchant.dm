@@ -64,4 +64,3 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/labor/mathematics, 4, TRUE) // Literally unused skill
 		H.mind.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/firearms, 2, TRUE)

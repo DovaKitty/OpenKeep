@@ -950,7 +950,7 @@
 	..()
 
 //............... Battle Nun ........................... (unique kit for the role, tabard for aesthetics)
-/obj/item/clothing/stabard/battlenun
+/obj/item/clothing/cloak/stabard/battlenun
 	name = "nun vestments"
 	desc = "Chaste, righteous, merciless to the wicked."
 	color = null
