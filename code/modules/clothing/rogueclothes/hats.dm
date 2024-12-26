@@ -643,14 +643,16 @@
 
 //............... Battle Nun ........................... (unique kit for the role, iron coif mechanically.)
 /obj/item/clothing/head/roguetown/helmet/battlenun
-	name = "veil over coif"
+	name = "forgotten habit"
 	desc = "A gleaming coif of metal half-hidden by a black veil."
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/64x64/head.dmi'
 	bloody_icon = 'icons/effects/blood64x64.dmi'
 	bloody_icon_state = "helmetblood_big"
 	icon_state = "battlenun"
-	dynamic_hair_suffix = ""	// this hides all hair
+	dynamic_hair_suffix = ""
 	flags_inv = HIDEEARS|HIDEHAIR
+	worn_x_dimension = 64
+	worn_y_dimension = 64
 	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
 	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
 	break_sound = 'sound/foley/cloth_rip.ogg'

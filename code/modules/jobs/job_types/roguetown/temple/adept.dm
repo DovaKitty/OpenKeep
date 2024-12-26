@@ -142,12 +142,12 @@
 	H.set_patron(/datum/patron/forgotten)
 
 	//Armor for class
-	armor = /obj/item/clothing/suit/roguetown/armor/chainmail
+	armor = /obj/item/clothing/suit/roguetown/armor/cuirass
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
 	head = /obj/item/clothing/head/roguetown/helmet/battlenun
 	neck = /obj/item/clothing/neck/roguetown/psycross/silver
 	cloak = /obj/item/clothing/cloak/stabard/battlenun
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	backr = /obj/item/rogueweapon/mace/goden/steel
