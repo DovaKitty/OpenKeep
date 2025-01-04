@@ -39,6 +39,9 @@
 		H.mind.adjust_skillrank(/datum/skill/craft/crafting, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
+		if(!H.has_language(/datum/language/thievescant))
+			H.grant_language(/datum/language/thievescant)
+			to_chat(H, "<span class='info'>I can sign Thieves' Cant with ,t before my speech.</span>")
 	if(H.gender == MALE)
 		shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan

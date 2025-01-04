@@ -217,6 +217,9 @@
 
 	H.change_stat("perception", 2)
 	H.change_stat("speed", 2)
+	if(!H.has_language(/datum/language/thievescant))
+		H.grant_language(/datum/language/thievescant)
+		to_chat(H, "<span class='info'>I can sign Thieves' Cant with ,t before my speech.</span>")
 	if(H.patron != /datum/patron/inhumen/graggar)
 		H.set_patron(/datum/patron/inhumen/graggar) // Assassins are associated with the God of murder, Graggar
 		to_chat(H, "<span class='danger'>I've memorized my list of targets, time to get to work. For [H.patron] has led me to who I am tonight.")

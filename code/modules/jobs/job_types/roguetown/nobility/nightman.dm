@@ -45,6 +45,9 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
 		H.change_stat("strength", 1)
 		H.change_stat("intelligence", -1)
+		if(!H.has_language(/datum/language/thievescant))
+			H.grant_language(/datum/language/thievescant)
+			to_chat(H, "<span class='info'>I can sign Thieves' Cant with ,t before my speech.</span>")
 
 	if(H.gender == MALE)
 		pants = /obj/item/clothing/under/roguetown/trou/leather

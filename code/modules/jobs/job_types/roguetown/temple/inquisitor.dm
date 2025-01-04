@@ -95,6 +95,9 @@
 		if(!H.has_language(/datum/language/oldpsydonic))
 			H.grant_language(/datum/language/oldpsydonic)
 			to_chat(H, "<span class='info'>I can speak Old Psydonic with ,m before my speech.</span>")
+		if(!H.has_language(/datum/language/handcant))
+			H.grant_language(/datum/language/handcant)
+			to_chat(H, "<span class='info'>I can sign Hand Cant with ,y before my speech.</span>")
 		if(H.mind.has_antag_datum(/datum/antagonist))
 			return
 		var/datum/antagonist/new_antag = new /datum/antagonist/purishep()
@@ -152,6 +155,9 @@
 	if(!H.has_language(/datum/language/zybantine))
 		H.grant_language(/datum/language/zybantine)
 		to_chat(H, "<span class='info'>I can speak Zybean with ,z before my speech.</span>")
+	if(!H.has_language(/datum/language/handcant))
+		H.grant_language(/datum/language/handcant)
+		to_chat(H, "<span class='info'>I can sign Hand Cant with ,y before my speech.</span>")
 	if(H.mind.has_antag_datum(/datum/antagonist))
 		return
 	var/datum/antagonist/new_antag = new /datum/antagonist/purishep()
@@ -218,6 +224,9 @@
 	H.change_stat("perception", 2)
 	H.change_stat("speed", 1)
 	H.change_stat("endurance", 2)
+	if(!H.has_language(/datum/language/handcant))
+		H.grant_language(/datum/language/handcant)
+		to_chat(H, "<span class='info'>I can sign Hand Cant with ,y before my speech.</span>")
 	if(H.mind.has_antag_datum(/datum/antagonist))
 		return
 	var/datum/antagonist/new_antag = new /datum/antagonist/purishep()

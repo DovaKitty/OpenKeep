@@ -53,3 +53,6 @@
 	H.change_stat("strength", -1)
 	H.change_stat("perception", 2)
 	H.change_stat("speed", 2)
+	if(!H.has_language(/datum/language/thievescant))
+		H.grant_language(/datum/language/thievescant)
+		to_chat(H, "<span class='info'>I can sign Thieves' Cant with ,t before my speech.</span>")

@@ -122,6 +122,9 @@
 	H.change_stat("endurance", 2)
 	H.change_stat("speed", 1)
 	H.change_stat("fortune", 3)
+	if(!H.has_language(/datum/language/thievescant))
+		H.grant_language(/datum/language/thievescant)
+		to_chat(H, "<span class='info'>I can sign Thieves' Cant with ,t before my speech.</span>")
 	ADD_TRAIT(H, TRAIT_GOODLOVER, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)
 

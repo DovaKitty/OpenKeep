@@ -61,6 +61,9 @@
 		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, pick(1,2,3), TRUE) // Street-fu
 		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, pick(1,2,3), TRUE)
 		H.STALUC = rand(1, 20)
+		if(!H.has_language(/datum/language/thievescant))
+			H.grant_language(/datum/language/thievescant)
+			to_chat(H, "<span class='info'>I can sign Thieves' Cant with ,t before my speech.</span>")
 	if(prob(25))
 		r_hand = /obj/item/natural/stone
 	if(prob(10))
