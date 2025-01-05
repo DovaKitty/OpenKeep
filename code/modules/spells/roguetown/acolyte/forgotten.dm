@@ -106,8 +106,8 @@
 			from_greyscale(A)
 			to_remove += A
 
-	for(var/atom/movable/REM in to_remove)
-		greyscaled_atoms.Remove(REM)
+	for(var/atom/movable/A in to_remove)
+		greyscaled_atoms.Remove(A)
 
 /obj/effect/proc_holder/spell/invoked/aura_silence/proc/to_greyscale(atom/movable/A)
 	A.add_atom_colour(list(
