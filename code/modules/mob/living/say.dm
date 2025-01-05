@@ -204,14 +204,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	spans |= speech_span
 
 	//Handle nonverbal and sign languages here
-	if (speaking)
-		if (speaking.language_flags & LANGUAGE_SIGNLANG)
-			src.log_talk("(SIGN) [message]", LOG_SAY)
-			return say_signlang(message, pick(speaking.signlang_verb), speaking)
-
-		if (speaking.language_flags & LANGUAGE_NONVERBAL)
-			if (prob(30))
-				src.custom_emote(1, "[pick(speaking.signlang_verb)].")
+	if(language.flags & SIGNLANG_SPEECH)
+		// Log it as sign-based talk (instead of normal speech)
+		src.log_talk("(SIGN) [message]", LOG_SAY)
+		// Show the sign language to people in range, visually
+		return say_signlang(message, pick(language.signlang_verb), src)
 
 	if(language)
 		var/datum/language/L = GLOB.language_datum_instances[language]
@@ -284,15 +281,17 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	show_message(message, MSG_AUDIBLE, deaf_message, deaf_type)
 	return message
 
-/mob/proc/hear_signlang(var/message, var/verb = "gestures", var/datum/prototype/language/language, var/mob/speaker = null)
+/mob/proc/hear_signlang(message, verb = "gestures", datum/language/language, mob/speaker = null)
 	if(!client)
 		return
 
-	if(say_understands(speaker, language))
+	// If you *know* the sign language, you see the actual message
+	if(has_language(language))
 		message = "<B>[speaker]</B> [verb], \"[message]\""
 	else
+		// Otherwise, a generic "They gesture, but you can’t read it"
 		var/adverb
-		var/length = length_char(message) * pick(0.8, 0.9, 1.0, 1.1, 1.2)	//Adds a little bit of fuzziness
+		var/length = length_char(message) * pick(0.8, 0.9, 1.0, 1.1, 1.2)
 		switch(length)
 			if(0 to 12)		adverb = " briefly"
 			if(12 to 30)	adverb = " a short message"
@@ -301,7 +300,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			else			adverb = " a very lengthy message"
 		message = "<B>[speaker]</B> [verb][adverb]."
 
-	show_message(message, MSG_VISUAL) // Type 1 is visual message
+	show_message(message, MSG_VISUAL)
 
 /mob/living/send_speech(message, message_range = 6, obj/source = src, bubble_type = bubble_icon, list/spans, datum/language/message_language=null, message_mode)
 	var/static/list/eavesdropping_modes = list(MODE_WHISPER = TRUE, MODE_WHISPER_CRIT = TRUE)
@@ -391,7 +390,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
 
-	if(is_muzzled() && !(speaking && speaking.language_flags & SIGNLANG_SPEECH))
+	if(is_muzzled())
 		return FALSE
 
 	if(!IsVocal())
@@ -416,12 +415,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/living/proc/treat_message(message)
 	if(HAS_TRAIT(src, TRAIT_ZOMBIE_SPEECH))
 		message = "[repeat_string(rand(1, 3), "U")][repeat_string(rand(1, 6), "H")]..."
-	else if(HAS_TRAIT(src, TRAIT_GARGLE_SPEECH) && !(speaking && speaking.language_flags & SIGNLANG_SPEECH))
+	else if(HAS_TRAIT(src, TRAIT_GARGLE_SPEECH))
 		message = vocal_cord_torn(message)
-
-	if(speaking && speaking.language_flags & SIGNLANG_SPEECH)
-		message = capitalize(message)
-		return message
 
 	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
 		message = unintelligize(message)
@@ -488,22 +483,19 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	. = ..()
 
-/mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/prototype/language/language, /obj/source = src, message_range = 6, eavesdrop_range = 1)
+/mob/living/proc/say_signlang(message, verb="gestures", datum/language/language, /obj/source = src, message_range = 6, eavesdrop_range = 1)
 	var/turf/T = get_turf(src)
-	//We're in something, gesture to people inside the same thing
+
+	// If you're in an object (locker, mech, etc.), only that object’s contents see your signing
 	if(loc != T)
 		for(var/mob/M in loc)
 			M.hear_signlang(message, verb, language, src)
-
-	//We're on a turf, gesture to visible as if we were a normal language
 	else
-		var/list/potentials = get_hearers_in_view(message_range+eavesdrop_range, src)
+		// Otherwise, treat sign language similarly to audible speech range
+		var/list/potentials = get_hearers_in_view(message_range + eavesdrop_range, src)
 		var/list/mobs = potentials["mobs"]
 		for(var/hearer in mobs)
 			var/mob/M = hearer
 			M.hear_signlang(message, verb, language, src)
-		var/list/objs = potentials["objs"]
-		for(var/hearer in objs)
-			var/obj/O = hearer
-			O.hear_signlang(src, message, verb, language)
+
 	return 1

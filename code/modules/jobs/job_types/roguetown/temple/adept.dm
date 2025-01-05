@@ -34,6 +34,7 @@
 	outfit = /datum/outfit/job/roguetown/adept/bzealot
 
 	category_tags = list(CTAG_ADEPT)
+	allowed_sexes = list(MALE)
 	maximum_possible_slots = 2
 
 /datum/outfit/job/roguetown/adept/bzealot/pre_equip(mob/living/carbon/human/H)
@@ -90,6 +91,7 @@
 	outfit = /datum/outfit/job/roguetown/adept/rthief
 
 	category_tags = list(CTAG_ADEPT)
+	allowed_sexes = list(MALE)
 	maximum_possible_slots = 2
 
 /datum/outfit/job/roguetown/adept/rthief/pre_equip(mob/living/carbon/human/H)
@@ -147,6 +149,7 @@
 	outfit = /datum/outfit/job/roguetown/adept/nun
 
 	category_tags = list(CTAG_ADEPT)
+	allowed_sexes = list(FEMALE)
 	maximum_possible_slots = 2
 
 /datum/outfit/job/roguetown/adept/nun/pre_equip(mob/living/carbon/human/H)
@@ -175,9 +178,12 @@
 	H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/magic/holy, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
+	if(H.age == AGE_OLD)
+		H.mind.adjust_skillrank(/datum/skill/combat/axesmaces, 1, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
 	H.change_stat("strength", 1)
 	H.change_stat("intelligence", 1)
 	H.change_stat("constitution", 1)
@@ -191,6 +197,7 @@
 	ADD_TRAIT(H, TRAIT_KNOWBANDITS, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_MUTE, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_ANTIMAGIC, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_ANTISCRYING, TRAIT_GENERIC)
 	H.virginity = TRUE
 
 /datum/outfit/job/roguetown/adept/pre_equip(mob/living/carbon/human/H)
