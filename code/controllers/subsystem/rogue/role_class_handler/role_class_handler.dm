@@ -149,6 +149,13 @@ SUBSYSTEM_DEF(role_class_handler)
 		H.update_body()
 		H.update_hair()
 
+	if(istype(picked_class, /datum/advclass/adept/nun))
+		H.set_patron(/datum/patron/forgotten)
+		var/datum/devotion/cleric_holder/C = new /datum/devotion/cleric_holder(H, H.patron)
+		C.holder_mob = H
+		C.update_devotion(50, 50)
+		C.grant_spells_cleric(H)
+		H.verbs += list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray)
 
 	H.advsetup = FALSE // This is actually on a lot of shit, so its a ghetto selector protector if u need one
 	picked_class.equipme(H)

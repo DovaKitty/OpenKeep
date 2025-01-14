@@ -168,6 +168,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(saymode && !saymode.handle_message(src, message, language))
 		return
 
+	//Handle nonverbal and sign languages here
+	if(language.flags & SIGNLANG_SPEECH)
+		// Log it as sign-based talk (instead of normal speech)
+		src.log_talk("(SIGN) [message]", LOG_SAY)
+		// Show the sign language to people in range, visually
+		return say_signlang(message, pick(language.signlang_verb), src)
+
 	if(!can_speak_vocal(message))
 //		visible_message("<b>[src]</b> makes a muffled noise.")
 		to_chat(src, "<span class='warning'>I can't talk.</span>")
@@ -202,13 +209,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return
 
 	spans |= speech_span
-
-	//Handle nonverbal and sign languages here
-	if(language.flags & SIGNLANG_SPEECH)
-		// Log it as sign-based talk (instead of normal speech)
-		src.log_talk("(SIGN) [message]", LOG_SAY)
-		// Show the sign language to people in range, visually
-		return say_signlang(message, pick(language.signlang_verb), src)
 
 	if(language)
 		var/datum/language/L = GLOB.language_datum_instances[language]
@@ -483,7 +483,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	. = ..()
 
-/mob/living/proc/say_signlang(message, verb="gestures", datum/language/language, /obj/source = src, message_range = 6, eavesdrop_range = 1)
+/mob/living/proc/say_signlang(message, verb="gestures", datum/language/language, obj/source = src, message_range = 6, eavesdrop_range = 1)
 	var/turf/T = get_turf(src)
 
 	// If you're in an object (locker, mech, etc.), only that object’s contents see your signing

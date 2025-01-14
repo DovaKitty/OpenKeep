@@ -145,7 +145,7 @@
 
 /datum/advclass/adept/nun
 	name = "Forgotten Sister"
-	tutorial = "You are a former thug who has been given a chance to redeem yourself by the Inquisitor. You serve him and the Forgotten God with your physical strength and zeal."
+	tutorial = "You are a member of the Forgotten Sisterhood, a convent of witch and demon hunters in service to the God of Men. As blessed reward for your vow of silence, you have been granted the ability to abjure magic itself."
 	outfit = /datum/outfit/job/roguetown/adept/nun
 
 	category_tags = list(CTAG_ADEPT)
@@ -155,7 +155,6 @@
 /datum/outfit/job/roguetown/adept/nun/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.set_patron(/datum/patron/forgotten)
-
 	//Armor for class
 	armor = /obj/item/clothing/suit/roguetown/armor/cuirass
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
@@ -166,6 +165,8 @@
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	backr = /obj/item/rogueweapon/mace/goden/steel
+	mask = /obj/item/clothing/mask/rogue/shepherd
+
 
 	backpack_contents = list(/obj/item/keyring/shepherd = 1, /obj/item/rogueweapon/knife/dagger/silver = 1)
 
@@ -178,12 +179,9 @@
 	H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
-	H.mind.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
+	H.mind.adjust_skillrank(/datum/skill/magic/holy, 3, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
 	H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
-	if(H.age == AGE_OLD)
-		H.mind.adjust_skillrank(/datum/skill/combat/axesmaces, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
 	H.change_stat("strength", 1)
 	H.change_stat("intelligence", 1)
 	H.change_stat("constitution", 1)
@@ -207,7 +205,6 @@
 			return
 		var/datum/antagonist/new_antag = new /datum/antagonist/purishep()
 		H.mind.add_antag_datum(new_antag)
-		H.set_patron(/datum/patron/forgotten)
 		H.verbs |= /mob/living/carbon/human/proc/torture_victim
 
 /datum/job/roguetown/adept/after_spawn(mob/living/carbon/human/H, mob/M, latejoin = TRUE)
