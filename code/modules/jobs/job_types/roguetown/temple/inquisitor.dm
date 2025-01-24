@@ -368,3 +368,73 @@
 					return
 	say(pick(innocent_lines), spans = list("torture"))
 	return
+
+/**
+ * Handles periodic mailing to all living Inquisitors
+ * Sends mail every 30 minutes with Order updates
+ */
+/datum/controller/subsystem/processing/roguemachine
+    var/next_inquisitor_mail = 0 // Tracks when next mail should be sent
+
+/datum/controller/subsystem/processing/roguemachine/fire(resumed = 0)
+    . = ..()
+    // Check if it's time to send inquisitor mail
+    if(world.time >= next_inquisitor_mail)
+        send_inquisitor_updates()
+        next_inquisitor_mail = world.time + (30 MINUTES)
+
+/**
+ * Sends updates to all living Inquisitors
+ * Returns number of messages successfully sent
+ */
+/datum/controller/subsystem/processing/roguemachine/proc/send_inquisitor_updates()
+    var/messages_sent = 0
+    var/list/living_inquisitors = list()
+
+    // Find all living Inquisitors
+    for(var/mob/living/carbon/human/H in GLOB.player_list)
+        if(H.mind?.assigned_role == "Inquisitor" && H.stat != DEAD)
+            living_inquisitors += H
+
+    if(!living_inquisitors.len)
+        return 0 // No living Inquisitors
+
+    // Generate Order update message
+    var/message = generate_order_message()
+
+    // Send to each Inquisitor
+    for(var/mob/living/carbon/human/I in living_inquisitors)
+        if(send_mail(I.real_name, "The Order", message, /obj/item/paper/scroll))
+            messages_sent++
+
+    return messages_sent
+
+/**
+ * Generates message content for Order updates
+ * Can be expanded to include various types of updates
+ */
+/datum/controller/subsystem/processing/roguemachine/proc/generate_order_message()
+    var/message = "<h2>Order Update</h2>\n"
+    message += "<hr>"
+
+    // Add confession count if system tracks it
+    if(GLOB.confessors)
+        message += "Confessions received: [length(GLOB.confessors)]\n"
+
+    // Add current time context
+    var/time_of_day = "morning"
+    if(prob(50))
+        time_of_day = "evening"
+    message += "\nBe vigilant this [time_of_day], for evil never sleeps.\n"
+
+    // Add random Order wisdom
+    var/list/order_wisdom = list(
+        "The corrupt must be purified.",
+        "Truth is found through pain.",
+        "Faith shields against darkness.",
+        "Mercy is a luxury the wicked do not deserve.",
+        "In darkness we are the light."
+    )
+    message += "\n[pick(order_wisdom)]"
+
+    return message

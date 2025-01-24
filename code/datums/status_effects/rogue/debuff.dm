@@ -431,3 +431,26 @@
 	SIGNAL_HANDLER
 
 	qdel(src)
+
+/datum/status_effect/debuff/deafened
+	id = "deaf"
+	alert_type = null
+
+/datum/status_effect/debuff/deafened/on_creation(mob/living/new_owner, duration = 10 SECONDS)
+	src.duration = duration
+	return ..()
+
+/datum/status_effect/debuff/deafened/on_apply()
+	RegisterSignal(owner, COMSIG_LIVING_DEATH, PROC_REF(clear_deafened))
+	ADD_TRAIT(owner, TRAIT_DEAF, id)
+	return TRUE
+
+/datum/status_effect/debuff/deafened/on_remove()
+	UnregisterSignal(owner, COMSIG_LIVING_DEATH)
+	REMOVE_TRAIT(owner, TRAIT_DEAF, id)
+
+/// Signal proc that clears any deafened we have (self-deletes).
+/datum/status_effect/debuff/deafened/proc/clear_deafened(mob/living/source)
+	SIGNAL_HANDLER
+
+	qdel(src)

@@ -6,6 +6,6 @@
 	worshippers = "Grenzelhofters, Inquisitors, Heroes"
 	sins = "Apostasy, Demon Worship, Betraying thy Father"
 	t0 = /obj/effect/proc_holder/spell/invoked/gag
-	t1 = /obj/effect/proc_holder/spell/self/aura_silence
+	t1 = /obj/effect/proc_holder/spell/aoe_turf/silence_aura
 	t2 = null
 	t3 = null

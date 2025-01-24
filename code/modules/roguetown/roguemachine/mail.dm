@@ -341,6 +341,54 @@
 			STR.remove_from_storage(I, get_turf(src))
 	return ..()
 
+/**
+ * Send a mail message to a specified recipient
+ *
+ * Arguments:
+ * * recipient - The name of the recipient to send mail to
+ * * sender - The name of who is sending the mail (defaults to "Anonymous")
+ * * message - The message content to send
+ * * special_paper - Optional paper type to use instead of default (e.g. /obj/item/paper/scroll)
+ *
+ * Returns TRUE if mail was sent successfully, FALSE otherwise
+ */
+/proc/send_mail(recipient, sender = "Anonymous", message, paper_type = /obj/item/paper)
+    if(!recipient || !message)
+        return FALSE
+
+    // Find master mail handler
+    if(!SSroguemachine.hermailermaster)
+        return FALSE
+
+    var/obj/item/roguemachine/mastermail/master = SSroguemachine.hermailermaster
+
+    // Create the letter
+    var/obj/item/paper/P = new paper_type()
+    P.info = message
+    P.mailer = sender
+    P.mailedto = recipient
+    P.update_icon()
+
+    // Add to master mail
+    P.forceMove(master.loc)
+    var/datum/component/storage/STR = master.GetComponent(/datum/component/storage)
+    if(!STR)
+        qdel(P)
+        return FALSE
+
+    STR.handle_item_insertion(P, prevent_warning=TRUE)
+    master.new_mail = TRUE
+    master.update_icon()
+
+    // Notify recipient
+    send_ooc_note("New letter from <b>[sender].</b>", name = recipient)
+    playsound(master, 'sound/misc/hiss.ogg', 100, FALSE, -1)
+
+    return TRUE
+
+// Example usage:
+// send_mail("John Smith", "The Mayor", "This is an important message...", /obj/item/paper/scroll)
+
 /obj/structure/roguemachine/mail/proc/process_confession(mob/living/carbon/human/user, P)
 	var/obj/item/paper/confession/C = P
 	if(C.signed)

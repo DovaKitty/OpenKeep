@@ -132,3 +132,10 @@
 #define adjust_silence_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/silenced, up_to)
 #define set_silence(duration) set_timed_status_effect(duration, /datum/status_effect/debuff/silenced)
 #define set_silence_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/debuff/silenced, TRUE)
+
+// Deafened
+
+#define adjust_deafened(duration) adjust_timed_status_effect(duration, /datum/status_effect/debuff/deafened
+#define adjust_deafened_up_to(duration, up_to) adjust_timed_status_effect(duration, /datum/status_effect/debuff/deafened, up_to)
+#define set_deafened(duration) set_timed_status_effect(duration, /datum/status_effect/debuff/deafened)
+#define set_deafened_if_lower(duration) set_timed_status_effect(duration, /datum/status_effect/debuff/deafened, TRUE)
