@@ -103,6 +103,18 @@
 	..()
 	. = 1
 
+/datum/reagent/buff/coldfire
+	name = "Coldfire"
+	color = "#616990"
+	taste_description = "burning"
+	metabolization_rate = REAGENTS_METABOLISM
+
+/datum/reagent/buff/coldfire/on_mob_metabolize(mob/living/L)
+	ADD_TRAIT(L, TRAIT_MOB_FIRE_IMMUNE, type)
+
+/datum/reagent/buff/coldfire/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_MOB_FIRE_IMMUNE, type)
+
 //Buff potions
 /datum/reagent/buff
 	description = ""
@@ -204,7 +216,7 @@
 	return ..()
 
 
-//Poisons			
+//Poisons
 /* Tested this quite a bit. Heres the deal. Metabolism REAGENTS_SLOW_METABOLISM is 0.1 and needs to be that so poison isnt too fast working but
 still is dangerous. Toxloss of 3 at metabolism 0.1 puts you in dying early stage then stops for reference of these values.
 A dose of ingested potion is defined as 5u, projectile deliver at most 2u, you already do damage with projectile, a bolt can only feasible hold a tiny amount of poison, so much easier to deliver than ingested and so on.
@@ -296,3 +308,43 @@ If you want to expand on poisons theres tons of fun effects TG chemistry has tha
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 	return ..()
+
+/datum/reagent/fogblight
+	name = "fogblight"
+	description = "liquid concentrate from fog island's frogs. Used by shinobis."
+	taste_description = ""
+	reagent_state = LIQUID
+	color = "#1f434d"
+	metabolization_rate = 0.2
+
+/datum/reagent/fogblight/on_mob_life(mob/living/carbon/M)
+	switch(current_cycle)
+		if(1 to 10)
+			M.confused += 2
+			M.drowsyness += 2
+		if(10 to 50)
+			M.Sleeping(40, 0)
+			. = 1
+		if(51 to INFINITY)
+			M.Sleeping(40, 0)
+			M.adjustToxLoss((current_cycle - 50)*REM, 0)
+			. = 1
+	..()
+
+/*--------------\
+| spell reagent |
+\--------------*/
+
+/datum/reagent/medicine/abyssalpurificator
+	name = "abyssal purification"
+	description = "abyssor be with you."
+	reagent_state = LIQUID
+	metabolization_rate = 0.5
+	color = "#8fb9bc"
+
+/datum/reagent/medicine/abyssalpurificator/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick, times_fired)
+	for(var/datum/reagent/target_reagent in affected_mob.reagents.reagent_list)
+		if(istype(target_reagent, /datum/reagent/medicine/abyssalpurificator))
+			continue
+		// Remove 2 units of the reagent per second, scaled by the server's REM and tick rate
+		affected_mob.reagents.remove_reagent(target_reagent.type, 2 * REM * seconds_per_tick)

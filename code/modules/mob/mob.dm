@@ -497,6 +497,8 @@ GLOBAL_VAR_INIT(mobids, 1)
 	var/D = dir
 	if((spintime < 1)||(speed < 1)||!spintime||!speed)
 		return
+
+	flags_1 |= IS_SPINNING_1
 	while(spintime >= speed)
 		sleep(speed)
 		switch(D)
@@ -510,6 +512,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 				D = NORTH
 		setDir(D)
 		spintime -= speed
+	flags_1 &= ~IS_SPINNING_1
 
 ///Update the pulling hud icon
 /mob/proc/update_pull_hud_icon()
@@ -855,9 +858,6 @@ GLOBAL_VAR_INIT(mobids, 1)
 		return
 	if(pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE) //the reason this isn't a mobility_flags check is because you want them to be able to change dir if you're passively grabbing them
 		return FALSE
-	if(sexcon)
-		if(!sexcon.can_change_dir())
-			return FALSE
 	if(IsImmobilized())
 		return FALSE
 	return ..()

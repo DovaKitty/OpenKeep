@@ -119,7 +119,35 @@
 	prevent_crits = list(BCLASS_CUT, BCLASS_TWIST)
 	max_integrity = 200
 
+/obj/item/clothing/suit/roguetown/shirt/robe/bath
+	name = "bathrobe"
+	desc = "A bathrobe with a luxurious fur interior."
+	icon_state = "bathrobe"
+	toggle_icon_state = TRUE
+	adjustable = CAN_CADJUST
+	body_parts_covered = ARM_LEFT|ARM_RIGHT
+	sellprice = 12
 
+/obj/item/clothing/suit/roguetown/shirt/robe/bath/AdjustClothes(mob/user)
+	if(loc == user)
+		if(adjustable == CAN_CADJUST)
+			adjustable = CADJUSTED
+			if(toggle_icon_state)
+				icon_state = "[initial(icon_state)]_t"
+			flags_inv = null
+			if(ishuman(user))
+				var/mob/living/carbon/H = user
+				H.update_inv_armor()
+				H.update_icon()
+		else if(adjustable == CADJUSTED)
+			ResetAdjust(user)
+			flags_inv = HIDEBOOB
+			body_parts_covered = ARM_LEFT|ARM_RIGHT|CHEST|GROIN
+			if(user)
+				if(ishuman(user))
+					var/mob/living/carbon/H = user
+					H.update_inv_armor()
+					H.update_icon()
 
 /obj/item/clothing/suit/roguetown/shirt/robe/merchant
 	name = "guilder jacket"
@@ -146,3 +174,15 @@
 	item_state = "surgrobe"
 
 
+//kaizoku stuff
+
+/obj/item/clothing/suit/roguetown/shirt/robe/shrinekeeper
+	name = "shrinekeeper robe"
+	desc = "Silk-woven and shimmering like tides at dusk, for those who honors the will of the abyss."
+	icon_state = "shrinekeeper"
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
+	icon = 'icons/roguetown/kaizoku/clothingicon/armor.dmi'
+	mob_overlay_icon = 'icons/roguetown/kaizoku/clothing/armor.dmi'
+	sleeved = 'icons/roguetown/kaizoku/helpers/sleeves_armor.dmi'
+	sleevetype = "shirt"

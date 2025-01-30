@@ -1955,6 +1955,8 @@ Slots: [job.spawn_positions]</span>
 						if(user.client)
 							if(bla.patreon_req > user.client.patreonlevel())
 								continue
+							if(bla.minrace_pq > get_playerquality(user.ckey)) // PQ check here
+								continue
 						else
 							continue
 						crap += bla
@@ -1981,10 +1983,6 @@ Slots: [job.spawn_positions]</span>
 					var/list/coom = GLOB.character_flaws.Copy()
 					var/result = input(user, "Select a flaw", "Roguetown") as null|anything in coom
 					if(result)
-						if(result == "Love-Fiend")
-							if(!user.can_do_sex())
-								coom -= "Love-Fiend"
-								result = pick(coom)
 						result = coom[result]
 						var/datum/charflaw/C = new result()
 						charflaw = C
@@ -2469,6 +2467,10 @@ Slots: [job.spawn_positions]</span>
 		random_character(gender)
 	if(parent)
 		if(pref_species.patreon_req > parent.patreonlevel())
+			chosen_species = /datum/species/human/northern
+			pref_species = new /datum/species/human/northern
+			random_character(gender)
+		if(pref_species.minrace_pq > get_playerquality(parent.ckey))
 			chosen_species = /datum/species/human/northern
 			pref_species = new /datum/species/human/northern
 			random_character(gender)

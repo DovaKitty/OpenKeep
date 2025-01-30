@@ -44,7 +44,7 @@
 /datum/antagonist/prebel/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(.)
-		if(new_owner.assigned_role in GLOB.noble_positions)
+		if(new_owner.assigned_role in GLOB.court_positions)
 			return FALSE
 		if(new_owner.assigned_role in GLOB.garrison_positions)
 			return FALSE
@@ -112,7 +112,7 @@
 		return FALSE
 	if(!can_be_owned(candidate.mind))
 		return FALSE
-	if(candidate.mind.assigned_role in GLOB.noble_positions)
+	if(candidate.mind.assigned_role in GLOB.court_positions)
 		return FALSE
 	if(candidate.mind.assigned_role in GLOB.garrison_positions)
 		return FALSE
@@ -151,6 +151,13 @@
 	var/datum/team/prebels/RT = mind_datum.rev_team
 	var/shittime = world.time
 	playsound_local(src, 'sound/misc/rebel.ogg', 100, FALSE)
+	if(ishuman(src)) //Non-Burakumin Abyssariads cannot join peasant rebels. That would break their honor code. Burakumins can do it freely, as they have no honor.
+		var/mob/living/carbon/human/C = src
+		if((C.dna.species?.id == "abyssariad") && (!C.burakumin))
+			to_chat(src, "<span class='danger'>It would be a absolute DISHONOR to go against the Emperor's will.</span>")
+			to_chat(guy, "<span class='danger'>[src] cannot accept the offer.</span>")
+			RT.offers2join += "<span class='info'><B>[real_name]</B> <span class='red'>IS TOO LOYAL/span> [guy.real_name]: \"[offer]\"</span>"
+			return
 	var/garbaggio = alert(src, "[offer]","Rebellion", "Yes", "No")
 	if(world.time > shittime + 35 SECONDS)
 		to_chat(src,"<span class='danger'>Too late.</span>")

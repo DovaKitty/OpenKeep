@@ -1,7 +1,7 @@
 /datum/job/roguetown/armorsmith
 	title = "Armorer"
 	flag = BLACKSMITH
-	department_flag = MAKERS_GUILD
+	department_flag = TOWNERS
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -11,7 +11,11 @@
 		"Elf",
 		"Half-Elf",
 		"Dwarf",
-		"Aasimar"
+		"Aasimar",
+		"Changeling",
+		"Skylancer",
+		"Ogrun",
+		"Undine"
 	)
 
 	tutorial = "You studied for many decades under your master with a few other apprentices to become an Armorer, a trade that certainly has seen a boom in revenue in recent times with many a bannerlord seeing the importance in maintaining a well-equipped army."
@@ -73,7 +77,7 @@
 /datum/job/roguetown/weaponsmith
 	title = "Weaponsmith"
 	flag = BLACKSMITH
-	department_flag = MAKERS_GUILD
+	department_flag = TOWNERS
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -145,12 +149,18 @@
 /datum/job/roguetown/blacksmith
 	title = "Blacksmith"
 	flag = BLACKSMITH
-	department_flag = MAKERS_GUILD
+	department_flag = TOWNERS
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
 
-	allowed_races = ALL_PLAYER_RACES_BY_NAME
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf",
+		"Dwarf",
+		"Aasimar"
+	)
 
 	tutorial = "You can smith armor and weapons alike with ease, but do not forget your apprentices. If nothing else, they can be used for errands or thrown out if bumbling fools. The masons next door are also part of the Makers Guild."
 

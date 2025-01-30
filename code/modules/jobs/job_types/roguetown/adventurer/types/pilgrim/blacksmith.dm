@@ -1,5 +1,5 @@
 /datum/advclass/pilgrim/blacksmith
-	name = "Wandering smith"
+	name = "Wandering Smith"
 	tutorial = "Hardy worksmen that are at home in the forge, dedicating their lives \
 	to ceaselessly toil in dedication to Malum."
 	allowed_sexes = list(MALE, FEMALE)
@@ -10,7 +10,8 @@
 		"Dwarf",
 		"Tiefling",
 		"Dark Elf",
-		"Aasimar"
+		"Aasimar",
+		"Ogrun" //Abyssariad: Non-military racial specialization, so they are allowed to work on this role.
 	)
 	outfit = /datum/outfit/job/roguetown/adventurer/blacksmith
 	category_tags = list(CTAG_PILGRIM)
