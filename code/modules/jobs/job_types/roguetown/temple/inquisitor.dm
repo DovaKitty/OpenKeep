@@ -238,6 +238,69 @@
 	ADD_TRAIT(H, TRAIT_KNOWBANDITS, TRAIT_GENERIC)
 	H.verbs |= /mob/living/carbon/human/proc/torture_victim
 
+/datum/advclass/inquisitor/grenz
+	name = "Heartfelt Lodge"
+	tutorial = "An obscure sect of the Inquisition, the lodge of the island of Heartfelt has changed significantly since its alliance with the Abyssanctum. Combining stealth techniques foreign and domestic, they strike fear into any evil traversing the seas."
+	outfit = /datum/outfit/job/roguetown/inquisitor/grenz
+
+	category_tags = list(CTAG_INQUISITOR)
+	allowed_sexes = list(MALE, FEMALE)
+
+/datum/outfit/job/roguetown/inquisitor/grenz/pre_equip(mob/living/carbon/human/H)
+	..()
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/dark
+	shoes = /obj/item/clothing/shoes/roguetown/nobleboot
+	pants = /obj/item/clothing/under/roguetown/trou/leather
+	cloak = /obj/item/clothing/cloak/cape/puritan
+	head = /obj/item/clothing/head/roguetown/helmet/leather/inquisitor
+	backl = /obj/item/rogueweapon/sword/long/forgotten
+	neck = /obj/item/clothing/neck/roguetown/bevor
+	belt = /obj/item/storage/belt/rogue/leather/black
+	backr = /obj/item/storage/backpack/rogue/satchel
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/splint
+	var/prev_real_name = H.real_name
+	var/prev_name = H.name
+	var/honorary = "Ritter"
+	if(H.gender == FEMALE)
+		honorary = "Ritterin"
+	H.real_name = "[honorary] [prev_real_name]"
+	H.name = "[honorary] [prev_name]"
+	H.confession_points = 10 // Starting with 10 points
+	H.purchase_history = list() // Initialize as an empty list to track purchases
+
+	if(H.mind)
+		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/medicine, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/swords, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/firearms, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/knives, 3, TRUE)
+		H.change_stat("intelligence", 2)
+		H.change_stat("perception", 2)
+		H.change_stat("speed", 3)
+		H.change_stat("endurance", 1)
+		if(!H.has_language(/datum/language/handcant))
+			H.grant_language(/datum/language/handcant)
+			to_chat(H, "<span class='info'>I can sign Hand Cant with ,y before my speech.</span>")
+		if(H.mind.has_antag_datum(/datum/antagonist))
+			return
+		var/datum/antagonist/new_antag = new /datum/antagonist/purishep()
+		H.mind.add_antag_datum(new_antag)
+		if(H.patron != /datum/patron/forgotten)
+			H.set_patron(/datum/patron/forgotten)
+	ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_KNOWBANDITS, TRAIT_GENERIC)
+	H.verbs |= /mob/living/carbon/human/proc/torture_victim
 
 /mob/living/carbon/human/proc/torture_victim()
 	set name = "ExtractConfession"
