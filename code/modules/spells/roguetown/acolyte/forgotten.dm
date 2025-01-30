@@ -37,7 +37,7 @@
 	var/silence_duration = 100
 	devotion_cost = 30
 	associated_skill = /datum/skill/magic/holy
-	sound = 'sound/magic/silence.ogg'
+	sound = 'sound/magic/churn.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/silence_aura/cast(list/targets, mob/user = usr)
 	. = ..()
@@ -75,12 +75,12 @@
 
 /obj/effect/silence_field/Destroy()
 	qdel(silencefield)
-	playsound(src, 'sound/magic/silence_end.ogg', 50, TRUE)
+	playsound(src, 'sound/magic/churn.ogg', 50, TRUE)
 	return ..()
 
 /obj/effect/silence_field/proc/start_silence()
 	target = get_turf(src)
-	playsound(src, 'sound/magic/silence_start.ogg', 50, TRUE)
+	playsound(src, 'sound/magic/churn.ogg', 50, TRUE)
 	silencefield = make_field(/datum/proximity_monitor/advanced/silence_field, list("current_range" = freezerange, "host" = src, "immune" = immune, "duration" = duration))
 	QDEL_IN(src, duration)
 

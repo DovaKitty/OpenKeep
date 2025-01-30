@@ -1198,6 +1198,12 @@
 	armor = ARMOR_PADDED_GOOD
 	body_parts_covered = NECK|HAIR|EARS|HEAD
 
+//................. Stealth Hood ........... // - For Heartfelt Inquisitor
+	/obj/item/clothing/head/roguetown/helmet/leather/hood_ominous/stealth
+	name = "stealth hood"
+	desc = "A faceless cowl that strikes fear into those who dwell in the nite."
+	icon_state = "stealthhood"
+
 //............... Hardened Helmet ............... //
 /obj/item/clothing/head/roguetown/helmet/leather/conical // old helmet sprite
 	name = "hardened helmet"

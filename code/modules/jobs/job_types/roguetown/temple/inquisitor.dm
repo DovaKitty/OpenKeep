@@ -80,6 +80,7 @@
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/swords, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
@@ -180,7 +181,7 @@
 
 /datum/advclass/inquisitor/amz
 	name = "Issan Lodge"
-	tutorial = "A lodge on the mysterious isle of Issa, home of the humen warrior-women known as Amazons. Curiously, they worship the Forgotten God alongside the Divine Pantheon, and the lodge focuses on travelling Grimoria in search of holy artifacts."
+	tutorial = "A lodge on the mysterious Isle of Issa, home of the humen warrior-women known as Amazons. Curiously, they worship the Forgotten God alongside the Divine Pantheon, and the lodge focuses on travelling Grimoria in search of holy artifacts."
 	outfit = /datum/outfit/job/roguetown/inquisitor/amz
 
 	category_tags = list(CTAG_INQUISITOR)
@@ -238,31 +239,32 @@
 	ADD_TRAIT(H, TRAIT_KNOWBANDITS, TRAIT_GENERIC)
 	H.verbs |= /mob/living/carbon/human/proc/torture_victim
 
-/datum/advclass/inquisitor/grenz
+/datum/advclass/inquisitor/heart
 	name = "Heartfelt Lodge"
 	tutorial = "An obscure sect of the Inquisition, the lodge of the island of Heartfelt has changed significantly since its alliance with the Abyssanctum. Combining stealth techniques foreign and domestic, they strike fear into any evil traversing the seas."
-	outfit = /datum/outfit/job/roguetown/inquisitor/grenz
+	outfit = /datum/outfit/job/roguetown/inquisitor/heart
 
 	category_tags = list(CTAG_INQUISITOR)
 	allowed_sexes = list(MALE, FEMALE)
 
-/datum/outfit/job/roguetown/inquisitor/grenz/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/inquisitor/heart/pre_equip(mob/living/carbon/human/H)
 	..()
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/dark
-	shoes = /obj/item/clothing/shoes/roguetown/nobleboot
-	pants = /obj/item/clothing/under/roguetown/trou/leather
-	cloak = /obj/item/clothing/cloak/cape/puritan
-	head = /obj/item/clothing/head/roguetown/helmet/leather/inquisitor
-	backl = /obj/item/rogueweapon/sword/long/forgotten
-	neck = /obj/item/clothing/neck/roguetown/bevor
-	belt = /obj/item/storage/belt/rogue/leather/black
-	backr = /obj/item/storage/backpack/rogue/satchel
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/splint
+	shirt = /obj/item/clothing/suit/roguetown/shirt/looseshirt/shinobi
+	shoes = /obj/item/clothing/shoes/roguetown/boots/jikatabi/shinobi
+	pants = /obj/item/clothing/under/roguetown/trou/leather/shinobizubon
+	cloak = /obj/item/clothing/cloak/cape/stealth
+	head = /obj/item/clothing/head/roguetown/helmet/leather/hood_ominous/stealth
+	neck = /obj/item/clothing/neck/roguetown/gorget
+	wrists = /obj/item/clothing/neck/roguetown/psycross/silver
+	belt = /obj/item/storage/belt/rogue/kaizoku/leather/daisho
+	backr = /obj/item/clothing/shoes/roguetown/boots/jikatabi/shinobi
+	beltr = /obj/item/rogueweapon/flail/kusarigama/silver
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/stealth
 	var/prev_real_name = H.real_name
 	var/prev_name = H.name
-	var/honorary = "Ritter"
+	var/honorary = "Capelao"
 	if(H.gender == FEMALE)
-		honorary = "Ritterin"
+		honorary = "Capela"
 	H.real_name = "[honorary] [prev_real_name]"
 	H.name = "[honorary] [prev_name]"
 	H.confession_points = 10 // Starting with 10 points
@@ -271,18 +273,20 @@
 	if(H.mind)
 		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/medicine, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 5, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/swords, 4, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/crossbows, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/bows, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 5, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/lockpicking, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/firearms, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/knives, 3, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/craft/traps, 2, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/craft/engineering, 2, TRUE)
 		H.change_stat("intelligence", 2)
 		H.change_stat("perception", 2)
 		H.change_stat("speed", 3)
@@ -300,6 +304,8 @@
 	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_KNOWBANDITS, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_KAIZOKU, TRAIT_GENERIC)
+	to_chat(H, "<span class='info'I am an Islander, and I respectively have the culture of one.</span>")
 	H.verbs |= /mob/living/carbon/human/proc/torture_victim
 
 /mob/living/carbon/human/proc/torture_victim()

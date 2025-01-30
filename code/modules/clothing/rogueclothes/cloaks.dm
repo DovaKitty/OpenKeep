@@ -965,6 +965,14 @@
 	icon_state = "puritan_cape"
 	allowed_race = list("human", "tiefling", "elf", "dwarf", "aasimar")
 
+/obj/item/clothing/cloak/cape/stealth // - Unique glide effect
+	name = "stealth cloak"
+	desc = "A large, dark leather cape reminiscent of the wings belonging to dreaded flying creechers native to the Isle of Heartfelt."
+	icon_state = "ninjacloak"
+	item_state = "ninjacloak"
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
+	allowed_race = list("human", "tiefling", "elf", "dwarf", "aasimar")
+
 /obj/item/clothing/cloak/cape/inquisitor
 	name = "Inquisitors Cloak"
 	desc = "A time honored cloak Valorian design, used by founding clans of the Valorian Lodge"

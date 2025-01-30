@@ -260,3 +260,46 @@
 	desc = "A handle with a sickle-like blade and a chain with spiked ball, quickly assembled from an actual plowmen's sickle - it is clearly homemade."
 	icon_state = "kusarigama_homemade"
 	smeltresult = /obj/item/ingot/iron
+
+/obj/item/rogueweapon/flail/kusarigama/silver
+	force = DAMAGE_NORMAL_FLAIL-1
+	name = "silver kusarigama"
+	desc = "A handle with a sickle-like blade, featuring a chain that ends in a spiked ball. This one gleams with silvered purpose."
+	icon = 'icons/roguetown/weapons/32.dmi'
+	icon_state = "silver_kusarigama"
+	smeltresult = /obj/item/ingot/silver
+	is_silver = TRUE
+
+/obj/item/rogueweapon/flail/kusarigama/silver/pickup(mob/user)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(ishuman(H))
+		if(H.mind?.has_antag_datum(/datum/antagonist/vampirelord/lesser))
+			to_chat(H, "<span class='userdanger'>I can't pick up the silver, it is my BANE!</span>")
+			H.Knockdown(20)
+			H.adjustFireLoss(40)
+			H.Paralyze(1)
+			H.fire_act(1,5)
+		if(H.mind?.has_antag_datum(/datum/antagonist/vampirelord/))
+			var/datum/antagonist/vampirelord/V_lord = H.mind.has_antag_datum(/datum/antagonist/vampirelord/)
+			if(V_lord.vamplevel < 4 && !H.mind.has_antag_datum(/datum/antagonist/vampirelord/lesser))
+				to_chat(H, "<span class='userdanger'>I can't pick up the silver, it is my BANE!</span>")
+				H.Knockdown(10)
+				H.Paralyze(1)
+
+/obj/item/rogueweapon/flail/kusarigama/silver/mob_can_equip(mob/living/M, mob/living/equipper, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE)
+	. = ..()
+	if(ishuman(M))
+		var/datum/antagonist/vampirelord/V_lord = FALSE
+		var/mob/living/carbon/human/H = M
+		if(H.mind?.has_antag_datum(/datum/antagonist/vampirelord))
+			V_lord = H.mind.has_antag_datum(/datum/antagonist/vampirelord/)
+		if(H.mind?.has_antag_datum(/datum/antagonist/vampirelord/lesser))
+			H.Knockdown(20)
+			H.adjustFireLoss(40)
+			H.Paralyze(1)
+			H.fire_act(1,5)
+		if(V_lord)
+			if(V_lord.vamplevel < 4 && !H.mind.has_antag_datum(/datum/antagonist/vampirelord/lesser))
+				H.Knockdown(10)
+				H.Paralyze(1)

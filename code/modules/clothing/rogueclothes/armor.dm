@@ -206,6 +206,20 @@
 	prevent_crits = ALL_EXCEPT_STAB
 	max_integrity = INTEGRITY_STRONG
 
+//................ Stealth Suit ............... // -For Heartfelt Inquisitor - Stealth bonus - Not as much protection as splint, but covers more
+/obj/item/clothing/suit/roguetown/armor/leather/stealth
+	name = "stealth armor"
+	desc = "Strange, dark armor that seems to blend in with the nite. Made of supple, waterproof leather from aquatic creechers."
+	icon_state = "steatharmor"
+	item_state = "stealtharmor"
+	sellprice = VALUE_LEATHER_ARMOR_PLUS
+
+	armor = ARMOR_LEATHER
+	max_integrity = INTEGRITY_STRONG
+	body_parts_covered = COVERAGE_FULL
+	nodismemsleeves = FALSE
+	r_sleeve_status = SLEEVE_NOMOD
+	l_sleeve_status = SLEEVE_NOMOD
 
 //................ Leather Vest ............... //	- has no sleeves.  - can be worn in armor OR shirt slot
 /obj/item/clothing/suit/roguetown/armor/leather/vest
