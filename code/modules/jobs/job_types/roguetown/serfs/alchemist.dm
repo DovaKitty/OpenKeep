@@ -1,7 +1,7 @@
 /datum/job/roguetown/alchemist
 	title = "Alchemist"
 	flag = ALCHEMIST
-	department_flag = SERFS
+	department_flag = TOWNERS
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -11,7 +11,11 @@
 		"Elf",
 		"Half-Elf",
 		"Dwarf",
-		"Aasimar"
+		"Aasimar",
+		"Changeling",
+		"Skylancer",
+		"Ogrun",
+		"Undine"
 	)
 
 	tutorial = "You came to rockhill either to seek knowledge or riches."

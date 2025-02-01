@@ -32,7 +32,7 @@
 
 /obj/item/alch/waterdust
 	name = "water rune dust"
-	icon_state = "runedust"
+	icon_state = "water_runedust"
 	possible_potion = "mindcomp"
 
 /obj/item/alch/bonemeal
@@ -62,18 +62,18 @@
 
 /obj/item/alch/magicdust
 	name = "magicdust"
-	//icon_state = "magicdust"
+	icon_state = "magic_runedust"
 	possible_potion = "buffpot"
 
 /obj/item/alch/firedust
 	name = "fire rune dust"
-	icon_state = "runedust"
+	icon_state = "fire_runedust"
 	possible_potion = "bodycomp"
 
 /obj/item/alch/sinew
 	name = "sinew"
 	icon_state = "sinew"
-	dropshrink = 0.5
+	dropshrink = 0.9
 	dust_result = /obj/item/alch/viscera
 	possible_potion = "strpot"
 
@@ -84,12 +84,12 @@
 
 /obj/item/alch/airdust
 	name = "air rune dust"
-	icon_state = "runedust"
+	icon_state = "air_runedust"
 	possible_potion = "stronghealth"
 
 /obj/item/alch/swampdust
 	name = "swampweed dust"
-	icon_state = "tobaccodust"
+	icon_state = "swampdust"
 	possible_potion = "intpot"
 
 /obj/item/alch/tobaccodust
@@ -99,7 +99,7 @@
 
 /obj/item/alch/earthdust
 	name = "earth rune dust"
-	//icon_state = "earthdust"
+	icon_state = "earth_runedust"
 	possible_potion = "spiritcomp"
 
 /obj/item/alch/bone
@@ -120,6 +120,7 @@
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	dust_result = /obj/item/alch/earthdust
+	sellprice = 35
 
 //Modifier ingredients
 /obj/item/alch/golddust

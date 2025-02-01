@@ -1,7 +1,7 @@
 /datum/job/roguetown/mercenary
 	title = "Mercenary"
-	flag = GRAVEDIGGER
-	department_flag = PEASANTS
+	flag = MERCENARY
+	department_flag = OUTSIDERS
 	faction = "Station"
 	total_positions = 4
 	spawn_positions = 4
@@ -14,7 +14,11 @@
 		"Dwarf",
 		"Tiefling",
 		"Dark Elf",
-		"Aasimar"
+		"Aasimar",
+		"Changeling",
+		"Skylancer",
+		"Ogrun",
+		"Undine"
 	)
 	tutorial = "<br>Blood stained hands, do you even see it when they line your palms with golden treasures?  <br><br>\
 	You are a paid killer, redeemable only by fact that your loyalty can be bought,  \
@@ -27,6 +31,7 @@
 	outfit = null
 	outfit_female = null
 	advclass_cat_rolls = list(CTAG_MERCENARY = 20)
+	selection_color = "#9a9a9f"
 
 /datum/job/roguetown/mercenary/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()

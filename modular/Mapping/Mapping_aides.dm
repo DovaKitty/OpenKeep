@@ -66,7 +66,7 @@
 /datum/map_template/dwarf_outpost_ii
 	name = "Dwarf Outpost Beastmen"
 	id = "Dwarf_Outpost_2"
-	mappath = "_maps/map_files/templates/dwarf_outpost/Dwarf_Outpost_1.dmm"
+	mappath = "_maps/map_files/templates/dwarf_outpost/Dwarf_Outpost_2.dmm"
 
 
 /*	..................   Roadblock   ................... */
@@ -699,11 +699,11 @@
 
 
 /*	..................   Misc   ................... */
-/obj/item/roguestatue/silver/gnome
+/obj/item/roguestatue/gnome
 	name = "petrified gnome"
-	desc = "A literal gnome, turned to stone mid-step and put on a matching stone platform. Rather unsettling."
+	desc = "A literal gnome, turned to stone by powerful magicks. Rather unsettling, or a fascinating experiment, depending on your point of view."
+	icon_state = "gnome_petrified"
 	smeltresult = null
-	color = "#617163"
 
 
 // ====================		NEW WEAPONS		==========================
@@ -817,8 +817,8 @@
 	slot_flags = FALSE
 	dropshrink = 0.9
 
-
-
+/obj/item/rogueweapon/polearm/spear/neu
+	slot_flags = FALSE
 
 /mob/living/simple_animal/hostile/retaliate/rogue/spider/colony // colony spider
 	name = "hairy spider"
@@ -874,8 +874,6 @@
 
 /obj/effect/decal/cleanable/blood_neu/Initialize(mapload)
 	. = ..()
-	if(. == INITIALIZE_HINT_QDEL)
-		return .
 	pixel_x = rand(-5,5)
 	pixel_y = rand(5,5)
 	GLOB.weather_act_upon_list += src

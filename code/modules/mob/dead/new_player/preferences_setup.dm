@@ -55,7 +55,7 @@
 		features["ears"] = pref_species.default_features["ears"]
 	for(var/X in GLOB.horns_list.Copy())
 		var/datum/sprite_accessory/S = GLOB.horns_list[X]
-		if(!(pref_species in S.specuse))
+		if(!(pref_species in S?.specuse))
 			continue
 		if(S.gender == NEUTER)
 			features["horns"] = X
@@ -105,7 +105,6 @@
 		mannequin.job = previewJob.title
 		previewJob.equip(mannequin, TRUE, preference_source = parent)
 
-	COMPILE_OVERLAYS(mannequin)
 	parent.show_character_previews(new /mutable_appearance(mannequin))
 	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
 
@@ -115,6 +114,8 @@
 		return FALSE
 	if(user)
 		if(pref_species.patreon_req > user.patreonlevel())
+			return FALSE
+		if(pref_species.minrace_pq > get_playerquality(user.ckey)) // PQ check here
 			return FALSE
 	return TRUE
 

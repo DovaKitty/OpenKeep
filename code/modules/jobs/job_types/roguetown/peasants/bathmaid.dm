@@ -1,7 +1,7 @@
 /datum/job/roguetown/nitemaiden
 	title = "Nitemaiden"
-	flag = JESTER
-	department_flag = PEASANTS
+	flag = NITEMAIDEN
+	department_flag = TOWNERS
 	faction = "Station"
 	total_positions = 4
 	spawn_positions = 4
@@ -23,9 +23,9 @@
 	shoes = /obj/item/clothing/shoes/roguetown/shortboots
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/sexy
-	neck = /obj/item/storage/belt/rogue/pouch/nitemaiden
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	beltr = /obj/item/roguekey/nitemaiden
+	beltl = /obj/item/storage/belt/rogue/pouch/nitemaiden
 	ADD_TRAIT(H, TRAIT_GOODLOVER, TRAIT_GENERIC)
 
 	if(H.mind)
@@ -46,6 +46,18 @@
 		shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/jacket/sea
+	if(H.dna.species?.id == "abyssariad")
+		mask = /obj/item/clothing/mask/rogue/kaizoku/facemask/dishonor
+		H.burakumin = TRUE
+		to_chat(H, "<span class='userdanger'>In pursuit of hedonism and vices, I forfeited my honor and values of the Abyssal Tide. My soul can no longer claim the essence of an Abyssariad.</span>")
+		if(H.patron == /datum/patron/divine/abyssor)
+			H.patron = GLOB.patronlist[/datum/patron/divine/eora]
+			to_chat(H, "<span class='warning'>The waters I once revered now scorn me - the rivers blistering my impure skin. I've failed Abyssor as his champion, and now I've bonded with [H.patron].")
+
+		if(H.wear_mask)
+			if(istype(H.wear_mask, /obj/item/clothing/mask/rogue/eyepatch || /obj/item/clothing/mask/rogue/eyepatch/left))
+				qdel(H.wear_mask)
+				mask = /obj/item/clothing/mask/rogue/kaizoku/facemask/dishonor
 
 // Washing Implements
 
@@ -130,7 +142,6 @@
 		uses -= 1
 		if(uses == 0)
 			qdel(src)
-
 
 
 

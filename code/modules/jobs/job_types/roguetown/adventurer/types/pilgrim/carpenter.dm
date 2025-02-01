@@ -10,7 +10,8 @@
 		"Dwarf",
 		"Tiefling",
 		"Dark Elf",
-		"Aasimar"
+		"Aasimar",
+		"Ogrun"  //Abyssariad: Non-military racial specialization, so they are allowed to work on this role."
 	)
 	outfit = /datum/outfit/job/roguetown/adventurer/carpenter
 
@@ -41,7 +42,8 @@
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	beltl = /obj/item/rogueweapon/hammer/claw
 	backl = /obj/item/storage/backpack/rogue/backpack
-	backpack_contents = list(/obj/item/flint = 1, /obj/item/rogueweapon/knife/villager = 1)
+	backpack_contents = list(/obj/item/flint = 1, /obj/item/rogueweapon/knife/villager = 1, /obj/item/rogueweapon/handsaw = 1. )
+
 	H.change_stat("strength", 1)
 	H.change_stat("intelligence", 1)
 	H.change_stat("constitution", 1)

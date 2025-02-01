@@ -1047,15 +1047,26 @@
 
 /turf/open/floor/rogue/cobble/alt
 	icon_state = "cobblestonealt1"
-	canSmoothWith = FALSE
+	canSmoothWith = list(/turf/open/floor/rogue/cobble)
 	smooth = SMOOTH_FALSE
+	smooth_diag = FALSE
 /turf/open/floor/rogue/cobble/alt/Initialize()
 	. = ..()
 	icon_state = "cobblestonealt[rand(1,3)]"
 
-/turf/open/floor/rogue/cobblerock/alt
+/turf/open/floor/rogue/cobblerock_alt
 	icon_state = "cobblealt1"
-/turf/open/floor/rogue/cobblerock/alt/Initialize()
+	canSmoothWith = list(/turf/open/floor/rogue/cobblerock)
+	smooth = SMOOTH_FALSE
+	smooth_diag = FALSE
+	footstep = FOOTSTEP_STONE
+	barefootstep = FOOTSTEP_HARD_BAREFOOT
+	clawfootstep = FOOTSTEP_HARD_CLAW
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	landsound = 'sound/foley/jumpland/stoneland.wav'
+	neighborlay = ""
+
+/turf/open/floor/rogue/cobblerock_alt/Initialize()
 	. = ..()
 	icon_state = "cobblealt[rand(1,3)]"
 
@@ -1311,3 +1322,46 @@
 	.  = ..()
 	icon_state = "bathtile_pool_mid"
 /*	................................................ */
+
+
+/*	..................   Kaizoku Sand   ................... */
+/turf/open/floor/rogue/sand
+	icon = 'icons/roguetown/kaizoku/tileset/tileset.dmi'
+	icon_state = "sand1"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SOFT_BAREFOOT
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+	landsound = 'sound/foley/jumpland/dirtland.wav'
+	neighborlay = "sandedges"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(
+		/turf/closed/mineral/rogue,
+		/turf/closed/mineral,
+		/turf/closed/wall/mineral/rogue/stonebrick,
+		/turf/closed/wall/mineral/rogue/wood,
+		/turf/closed/wall/mineral/rogue/wooddark,
+		/turf/closed/wall/mineral/rogue/stone,
+		/turf/closed/wall/mineral/rogue/stone/moss,
+		/turf/open/floor/rogue/cobble,
+		/turf/open/floor/rogue/dirt,
+		/turf/open/floor/rogue/grass,
+		/turf/open/floor/rogue/grass/red,
+		/turf/open/floor/rogue/grass/yel,
+		/turf/open/floor/rogue/grass/cold,
+		/turf/open/floor/rogue/snow,
+		/turf/open/floor/rogue/snow/patchy,
+		/turf/open/floor/rogue/snow/rough
+	)
+
+/turf/open/floor/rogue/sand/cardinal_smooth(adjacencies)
+	// Apply custom smoothing for sand turfs
+	roguesmooth(adjacencies)
+
+/turf/open/floor/rogue/sand/Initialize()
+	. = ..()
+	icon_state = "sand[rand(1,4)]"
+
+/obj/effect/decal/turfedge_neu/sand
+	icon_state = "sandedge"
+	icon = 'icons/roguetown/kaizoku/tileset/tileset.dmi'
