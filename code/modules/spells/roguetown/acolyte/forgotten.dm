@@ -27,14 +27,14 @@
 	desc = "Creates a field of magical silence around you, muting all within its radius."
 	charge_max = 300
 	clothes_req = TRUE
+	req_items = list(/obj/item/clothing/neck/roguetown/psycross/silver)
 	antimagic_allowed = TRUE
-	req_inhand = /obj/item/clothing/neck/roguetown/psycross/silver
 	invocation_type = "none"
-	range = 7
+	range = 3 // Halved from 7
 	cooldown_min = 5
 	action_icon_state = "silence"
-	var/silence_range = 7
-	var/silence_duration = 100
+	var/silence_range = 3 // Halved from 7
+	var/silence_duration = 200 // Doubled from 100
 	devotion_cost = 30
 	associated_skill = /datum/skill/magic/holy
 	sound = 'sound/magic/silence.ogg'
@@ -44,7 +44,6 @@
 	user.visible_message("<span class='warning'>[user] makes the sign of the Psycross with their hands, emanating a dreaded aura!</span>","<span class='warning'>I make the sign of the Psycross with my hands, letting the truth of silence spill from my soul.</span>")
 	new /obj/effect/silence_field(get_turf(user), silence_range, silence_duration, list(user))
 
-// The actual silence field effect
 /obj/effect/silence_field
 	anchored = TRUE
 	name = "silence field"
@@ -56,9 +55,10 @@
 	pixel_y = -64
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/list/immune = list()
+	var/list/affected_atoms = list() // Track all affected atoms for cleanup
 	var/turf/target
 	var/freezerange = 2
-	var/duration = 100
+	var/duration = 200
 	var/datum/proximity_monitor/advanced/silence_field/silencefield
 	alpha = 125
 
@@ -74,6 +74,9 @@
 		INVOKE_ASYNC(src, PROC_REF(start_silence))
 
 /obj/effect/silence_field/Destroy()
+	for(var/atom/A in affected_atoms)
+		escape_the_negative_zone(A)
+	affected_atoms.Cut()
 	qdel(silencefield)
 	playsound(src, 'sound/magic/silence_end.ogg', 50, TRUE)
 	return ..()
@@ -84,36 +87,48 @@
 	silencefield = make_field(/datum/proximity_monitor/advanced/silence_field, list("current_range" = freezerange, "host" = src, "immune" = immune, "duration" = duration))
 	QDEL_IN(src, duration)
 
-// The proximity monitor that handles the actual silencing effect
 /datum/proximity_monitor/advanced/silence_field
 	name = "silence field"
 	setup_field_turfs = TRUE
 	field_shape = FIELD_SHAPE_RADIUS_SQUARE
-	requires_processing = TRUE
+	requires_processing = FALSE // Don't need constant processing
 	var/list/immune = list()
-	var/list/silenced_things = list()
 	var/list/silenced_mobs = list()
-	var/duration = 100 // Default duration
+	var/duration = 200
 
-/datum/proximity_monitor/advanced/silence_field/Destroy()
-	unsilence_all()
-	return ..()
+/datum/proximity_monitor/advanced/silence_field/setup_field_turf(turf/T)
+	. = ..()
+	var/obj/effect/silence_field/F = host
+
+	// Affect the turf
+	into_the_negative_zone(T)
+	F.affected_atoms |= T
+
+	// Affect objects, structures, and machines in the turf
+	for(var/atom/A in T.contents)
+		if(immune[A])
+			continue
+		if(ismob(A) || isobj(A) || isstructure(A) || ismachinery(A))
+			into_the_negative_zone(A)
+			F.affected_atoms |= A
+			if(isliving(A))
+				silence_mob(A)
 
 /datum/proximity_monitor/advanced/silence_field/field_turf_crossed(atom/movable/AM)
-	silence_atom(AM)
+	if(immune[AM])
+		return
+	if(isliving(AM))
+		silence_mob(AM)
+	into_the_negative_zone(AM)
+	var/obj/effect/silence_field/F = host
+	F.affected_atoms |= AM
 
-/datum/proximity_monitor/advanced/silence_field/proc/silence_atom(atom/movable/A)
-	if(immune[A] || !istype(A))
-		return FALSE
-	if(isliving(A))
-		silence_mob(A)
-		into_the_negative_zone(A)
-	return TRUE
-
-/datum/proximity_monitor/advanced/silence_field/proc/unsilence_all()
-	for(var/mob/living/M in silenced_mobs)
-		unsilence_mob(M)
-		escape_the_negative_zone(M)
+/datum/proximity_monitor/advanced/silence_field/field_turf_uncrossed(atom/movable/AM)
+	if(isliving(AM))
+		unsilence_mob(AM)
+	escape_the_negative_zone(AM)
+	var/obj/effect/silence_field/F = host
+	F.affected_atoms -= AM
 
 /datum/proximity_monitor/advanced/silence_field/proc/silence_mob(mob/living/L)
 	if(!(L in silenced_mobs))
@@ -128,7 +143,8 @@
 	L.set_deafened(1)
 
 /datum/proximity_monitor/advanced/silence_field/proc/into_the_negative_zone(atom/A)
-	A.add_atom_colour(list(-1,0,0,0, 0,-1,0,0, 0,0,-1,0, 0,0,0,1, 1,1,1,0), TEMPORARY_COLOUR_PRIORITY)
+	// Darker greyscale effect
+	A.add_atom_colour(list(-0.5,0,0,0, 0,-0.5,0,0, 0,0,-0.5,0, 0,0,0,1, 0.2,0.2,0.2,0), TEMPORARY_COLOUR_PRIORITY)
 
 /datum/proximity_monitor/advanced/silence_field/proc/escape_the_negative_zone(atom/A)
 	A.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
